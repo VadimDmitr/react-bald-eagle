@@ -1,10 +1,20 @@
 import React from 'react';
+import TodoList from './TodoList';
 
-const AddTodoForm = () => {
+const AddTodoForm = (props) => {
+
+  const handleAddTodo = (event) => {
+    event.preventDefault();
+    var todoTitle = event.target.title.value;
+    props.onAddTodo(todoTitle);
+    console.log(todoTitle);
+    event.target.reset();
+  }
+
   return (
-    <form>
+    <form onSubmit={handleAddTodo}>
        <label htmlFor="todoTitle">Title: </label>
-       <input id = "todoTitle"></input>
+       <input id = "todoTitle" type = "text" name = "title" />
        <input type="submit" value="Add" />
     </form>
   );
