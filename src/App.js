@@ -1,19 +1,21 @@
 import React from 'react';
-function App() {
-  const todoList = [
-    { id: 1, title: "Read lesson" },
-    { id: 2, title: "Exercises" },
-    { id: 3, title: "Complete assigment" },
-  ];
+import TodoList from './TodoList';
+import AddTodoForm from './AddTodoForm';
+
+const App = () => {
+  const [todoList, setTodoList] = React.useState([]);
+
+  const addTodo = (newTodo) => {
+
+    setTodoList ([...todoList, newTodo]);
+
+  }
 
   return (
-   <div className="App">
+   <div>
      <h1>Todo List</h1>
-     <ul>
-     {todoList.map(function (item) {
-        return <li key={item.id}>{item.title}</li>;
-         })}
-     </ul>
+     <TodoList todoList={todoList}/>
+     <AddTodoForm onAddTodo={addTodo} />
   </div>
     );
   }
