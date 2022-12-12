@@ -2,7 +2,7 @@ import React from 'react';
 import TodoListItem from './TodoListItem';
 
 const InputWithLabel = ({
-  todoItemID,
+  id,
   value,
   type = 'type',
   name = 'title',
@@ -17,10 +17,10 @@ const InputWithLabel = ({
 
   return (
     <>
-      <label htmlFor={todoItemID}>{children}</label>
+      <label htmlFor={id}>{children}</label>
       &nbsp;
       <input 
-        todoItemID={todoItemID} 
+        id={id} 
         type = {type} 
         name = {name} 
         onChange={onInputChange} 
