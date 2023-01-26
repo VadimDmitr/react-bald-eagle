@@ -23,6 +23,7 @@ const InputWithLabel = ({
         id={id} 
         type = {type} 
         name = {name} 
+        value={value}
         onChange={onInputChange} 
         ref ={inputRef}
       />

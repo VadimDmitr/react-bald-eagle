@@ -25,10 +25,10 @@ const AddTodoForm = ({ onAddTodo }) => {
         value={todoTitle}
         onInputChange={handleTitleChange}
       >
-
       Title:
       </InputWithLabel>
-         <input type="submit" value="Add" />
+         <input type="submit" value="Add" onChange={() => 
+          setTodoTitle('')}/>
       </form>
     </div>
   );
