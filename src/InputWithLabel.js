@@ -1,5 +1,6 @@
 import React from 'react';
 import TodoListItem from './TodoListItem';
+import style from './TodoListItem.module.css';
 
 const InputWithLabel = ({
   id,
@@ -17,7 +18,7 @@ const InputWithLabel = ({
 
   return (
     <>
-      <label htmlFor={id}>{children}</label>
+      <label htmlFor={id} className={style.label}>{children}</label>
       &nbsp;
       <input 
         id={id} 
@@ -26,6 +27,8 @@ const InputWithLabel = ({
         value={value}
         onChange={onInputChange} 
         ref ={inputRef}
+        className={style.input}
+        placeholder="Enter ToDo item"
       />
     </>
 );

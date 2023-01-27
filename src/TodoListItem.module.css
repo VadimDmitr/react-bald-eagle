@@ -1,0 +1,83 @@
+/*Loaded in a font family from Google Fonts*/
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+
+/*added a new ruleset for the .ListItem class*/
+.ListItem {
+  color: red;
+  /*Customized the font family*/
+  font-family: 'Open Sans', sans-serif;
+}
+
+
+body {
+  /*Changed the background color of the page body*/
+  background-color: #171212;
+  /*Changed the default text color*/
+  color: rgb(255, 35, 35);
+
+  
+}
+
+li {
+  /*Customized style of navigation items*/
+  background-color: rgb(0, 255, 42);
+  color: white;
+  font-size: 20px;
+
+  /*Added spacing (padding/margin) between elements*/
+  padding: 10px 20px;
+  margin: 10px 20px;
+}
+
+/*Changed the font size, weight, and color of all headings*/
+h1, h2, h3 {
+  font-size: 2rem;
+  font-weight: bold;
+  color: rgb(255, 0, 247);
+}
+
+/*added a new ruleset for the .ListItem class*/
+.ListItem {
+  color: rgb(13, 0, 255);
+  /*Customized the font family*/
+  font-family: 'Open Sans', sans-serif;
+}
+
+/*Customized remove button style */
+.removeButton {
+  padding: 0.5rem 1rem;
+  background-color: rgb(10, 10, 11);
+  color: white;
+  border-radius: 5px;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+/*Customized input Add button style */
+
+.addButton {
+  padding: 0.5rem 1rem;
+  background-color: green;
+  color: white;
+  border-radius: 5px;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+/*Customized input field*/
+.input {
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: 1px solid gray;
+}
+
+/*Customized label Title*/
+.label {
+  color: rgb(98, 255, 0);
+  font-size: 20px;
+  }
+
+  

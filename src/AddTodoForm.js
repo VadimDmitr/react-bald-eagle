@@ -1,5 +1,6 @@
 import React from 'react';
 import InputWithLabel from './InputWithLabel';
+import style from './TodoListItem.module.css';
 
 const AddTodoForm = ({ onAddTodo }) => {
 
@@ -27,7 +28,7 @@ const AddTodoForm = ({ onAddTodo }) => {
       >
       Title:
       </InputWithLabel>
-         <input type="submit" value="Add" onChange={() => 
+         <input className={style.addButton} type="submit" value="Add" onChange={() => 
           setTodoTitle('')}/>
       </form>
     </div>

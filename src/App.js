@@ -60,10 +60,10 @@ const App = () => {
   function addTodo(newTodo) {
     const data = {
       "fields": {
-        "Title": newTodo.title,
-        "Description": newTodo.description,
-        "Due Date": newTodo.dueDate,
-        "Status": newTodo.status
+      "Title": newTodo.title,
+      "Description": newTodo.description,
+      "Due Date": newTodo.dueDate,
+      "Status": newTodo.status
       }
     }
   
@@ -89,7 +89,7 @@ const App = () => {
               <Routes>
                 <Route exact path="/" element={
                   <div>
-                    <h1>Todo List: </h1>
+                    <h1>ToDo List: </h1>
                     <AddTodoForm onAddTodo={addTodo} />
                       {isLoading ? (
                         <p>Loading ...</p>
@@ -100,7 +100,7 @@ const App = () => {
                 } />
                 <Route path="/new" element={
                   <div>
-                    <h1>New Todo List: </h1>
+                    <h1>New ToDo List: </h1>
                   </div>
                 } />
               </Routes>
