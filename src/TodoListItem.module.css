@@ -1,76 +1,86 @@
 /*Loaded in a font family from Google Fonts*/
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@900&display=swap');
 
 
 *, *::after, *::before{
   margin: 10;
   padding: 10;
 }
-  body {
-    align-items: center;
-  }
-
-
-/*added a new ruleset for the .ListItem class*/
-.ListItem {
-/*Customized the font family*/
-font-family: 'Open Sans', sans-serif;
-}
 
 body {
 /*Changed the background color*/
-background-color: #F2F2F2;
-/*Changed the default text color*/
-color: #333333;
+  /*background-color: hsl(128deg 49% 63%);*/
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-image: url('./image/8.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 li {
-/*Customized style of navigation items*/
-background-color: #00B16A;
-color: white;
-font-size: 20px;
-/*Added spacing (padding/margin) between elements*/
-padding: 10px 20px;
-margin: 10px 20px;
-/*Added border radius*/
-border-radius: 5px;
-}
+  font-family: 'Merriweather', serif;
+  font-weight: bold;
+  font-size:18px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  list-style-type: none;
+  margin: 20px 0;
+  border-radius: 18px;
+  padding: 18px;
+  background-color: hsl(205deg 18% 71%);
+  box-shadow: 7px 7px 15px #ffffff, 
+  -7px -7px 15px #403f3f;
+  max-width: 400px;
+  min-width: 450px;
+    }
 
-/*Changed the font size, weight, and color of all headings*/
-h1, h2, h3 {
+
+/*Changed the font size, weight, and color of heading ToDo List*/
+h1{
+padding-left: 190px;
+align-items: center;
 font-size: 2rem;
 font-weight: bold;
 color: #00B16A;
 }
 
-/*Customized remove button style */
-/*Added Neumorphism effect on input field */
+/*Added effect on input field */
 .input {
+  font-family: 'Merriweather', serif;
+  margin: 20px;
+  font-size: medium;
+  font-weight: bold;
+  width: 290px;
   padding: 0.5rem;
   border-radius: 5px;
   border: 1px solid #333333;
   background-color: #F2F2F2;
   /*Added box-shadow for Neumorphism*/
-  box-shadow: 2px 2px 5px #bababa,
-  -2px -2px 5px #ffffff;
+  box-shadow: 4px 4px 10px #ffffff, 
+  -4px -4px 10px #403f3f;
   }
   
-  /*Added Neumorphism effect on remove button */
+  /*Added effect on remove button */
   .removeButton {
+  font-family: 'Merriweather', serif;
   padding: 0.5rem 1rem;
   background-color: #333333;
   color: white;
-  border-radius: 5px;
+  border-radius: 8px;
   border: none;
-  font-size: 1rem;
+  font-size: 0.9rem;
   cursor: pointer;
-  /*Added box-shadow for Neumorphism*/
-  box-shadow: 2px 2px 5px #bababa,
-  -2px -2px 5px #ffffff;
+  box-shadow: 4px 4px 10px #ffffff, 
+  -4px -4px 10px #403f3f;
   }
   
   /*Added gradient effect on Add button */
   .addButton {
+    width: 80px;
+  font-family: 'Merriweather', serif;
   padding: 0.5rem 1rem;
   /*Added gradient background */
   background: linear-gradient(to right, #00B16A, #4CAF50);
@@ -79,14 +89,19 @@ color: #00B16A;
   border: none;
   font-size: 1rem;
   cursor: pointer;
+  box-shadow: 4px 4px 10px #ffffff, 
+  -4px -4px 10px #403f3f;
   }
 
 /*Customized label Title*/
 .label {
 color: #333333;
 font-size: 20px;
+padding-left: 40px;
+font-family: 'Merriweather', serif;
 }
-/*Customized input Add button style with neumorphism effects */
+
+/*Customized input Add button style */
 .addButton {
 padding: 0.5rem 1rem;
 background-color: #00B16A;
@@ -96,8 +111,8 @@ border: none;
 font-size: 1rem;
 cursor: pointer;
 /* Inner shadow */
-box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.2), inset -2px -2px 5px rgba(255, 255, 255, 0.7);
+box-shadow: inset 4px 4px 10px #ffffff, inset-4px -4px 10px #403f3f;
 /* Outer shadow */
-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2), -2px -2px 5px rgba(255, 255, 255, 0.7);
+box-shadow: 4px 4px 10px #ffffff, -4px -4px 10px #403f3f;
 }
 

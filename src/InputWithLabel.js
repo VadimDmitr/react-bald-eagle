@@ -28,7 +28,7 @@ const InputWithLabel = ({
         onChange={onInputChange} 
         ref ={inputRef}
         className={style.input}
-        placeholder="Enter ToDo item"
+        placeholder="Add New ToDo"
       />
     </>
 );
