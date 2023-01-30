@@ -28,24 +28,14 @@ li {
   flex-direction: row;
   list-style-type: none;
   margin: 20px 0;
-  border-radius: 18px;
+  border-radius: 10px;
   padding: 18px;
-  background-color: hsl(205deg 18% 71%);
-  box-shadow: 7px 7px 15px #ffffff, 
+  background-color: rgba(192, 192, 192, 0.927);
+  box-shadow: -7px -7px 15px #ffffff, 
   -7px -7px 15px #403f3f;
   max-width: 400px;
   min-width: 450px;
     }
-
-
-/*Changed the font size, weight, and color of heading ToDo List*/
-h1{
-padding-left: 190px;
-align-items: center;
-font-size: 2rem;
-font-weight: bold;
-color: #00B16A;
-}
 
 /*Added effect on input field */
 .input {
@@ -53,13 +43,12 @@ color: #00B16A;
   margin: 20px;
   font-size: medium;
   font-weight: bold;
-  width: 290px;
+  width: 300px;
   padding: 0.5rem;
   border-radius: 5px;
-  border: 1px solid #333333;
-  background-color: #F2F2F2;
-  /*Added box-shadow for Neumorphism*/
-  box-shadow: 4px 4px 10px #ffffff, 
+  /*border: 1px solid #333333;
+  background-color: #F2F2F2;*/
+  box-shadow: -4px -4px 12px #ffffff, 
   -4px -4px 10px #403f3f;
   }
   
@@ -67,52 +56,79 @@ color: #00B16A;
   .removeButton {
   font-family: 'Merriweather', serif;
   padding: 0.5rem 1rem;
-  background-color: #333333;
+  background: linear-gradient(to right, #505050, #131313);
   color: white;
   border-radius: 8px;
   border: none;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   cursor: pointer;
   box-shadow: 4px 4px 10px #ffffff, 
-  -4px -4px 10px #403f3f;
+  -4px -4px 12px #313030;
   }
   
-  /*Added gradient effect on Add button */
+  /* Customized Add button */
   .addButton {
-  width: 80px;
+  width: 80px; 
   font-family: 'Merriweather', serif;
   padding: 0.5rem 1rem;
   /*Added gradient background */
-  background: linear-gradient(to right, #00B16A, #4CAF50);
+  background: linear-gradient(to right, #2ac386, #0af412);
+  padding: 0.5rem 1rem;
   color: white;
   border-radius: 5px;
   border: none;
   font-size: 1rem;
   cursor: pointer;
-  box-shadow: 4px 4px 10px #ffffff, 
-  -4px -4px 10px #403f3f;
+  box-shadow: inset -4px -4px 10px #ffffff, inset-4px -4px 10px #403f3f;
+  box-shadow: -4px -4px 10px #ffffff, -4px -4px 10px #403f3f;
+  }
+
+
+/*Changed the font size, weight, and color of heading ToDo List*/
+h1{
+  padding: 12px;
+  padding-left: 190px;
+  align-items: center;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #00B16A;
+  border: 1px solid #333333;
+  box-shadow: -4px -4px 12px #ffffff, 
+    -4px -4px 10px #403f3f;
   }
 
 /*Customized label Title*/
 .label {
-color: #00B16A;
-font-size: 25px;
-padding-left: 25px;
-font-family: 'Merriweather', serif;
+ color: #00B16A;
+ font-size: 25px;
+ padding: 8px;
+ font-family: 'Merriweather', serif;
+ border: 1px solid #333333;
+ box-shadow: -4px -4px 12px #ffffff, 
+ -4px -4px 10px #403f3f;
 }
 
-/*Customized input Add button style */
+/* Media query*/
+@media only screen and (max-width: 766px) {
+
+li {
+ min-width: 250px;
+  }
+
+h1{
+padding-left: 130px;
+border: 70ch;
+  }
+.label {
+  padding-left: 180px;
+  padding-right: 180px;
+  border: 70ch;
+  }
+.input {
+  padding: 10px;
+  }
 .addButton {
-padding: 0.5rem 1rem;
-background-color: #00B16A;
-color: white;
-border-radius: 5px;
-border: none;
-font-size: 1rem;
-cursor: pointer;
-/* Inner shadow */
-box-shadow: inset 4px 4px 10px #ffffff, inset-4px -4px 10px #403f3f;
-/* Outer shadow */
-box-shadow: 4px 4px 10px #ffffff, -4px -4px 10px #403f3f;
+  width: 64px;
+  }
 }
-
+  
