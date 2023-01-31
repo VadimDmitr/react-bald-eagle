@@ -10,6 +10,7 @@
 body {
 /*Changed the background color*/
   /*background-color: hsl(128deg 49% 63%);*/
+  padding-top: 90px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -30,12 +31,12 @@ li {
   margin: 20px 0;
   border-radius: 10px;
   padding: 18px;
-  background-color: rgba(192, 192, 192, 0.927);
+  background-color: #d1d1d1dd;
   box-shadow: -7px -7px 15px #ffffff, 
   -7px -7px 15px #403f3f;
   max-width: 400px;
   min-width: 450px;
-    }
+}
 
 /*Added effect on input field */
 .input {
@@ -86,33 +87,92 @@ li {
 
 /*Changed the font size, weight, and color of heading ToDo List*/
 h1{
-  padding: 12px;
-  padding-left: 190px;
-  align-items: center;
-  font-size: 2rem;
-  font-weight: bold;
-  color: #00B16A;
-  border: 1px solid #333333;
-  box-shadow: -4px -4px 12px #ffffff, 
-    -4px -4px 10px #403f3f;
-  }
+display:flex;
+padding: 12px;
+padding-left: 190px;
+align-items: center;
+font-size: 2rem;
+font-weight: bold;
+color: #0af412;
+border: 1px solid #333333;
+box-shadow: -4px -4px 12px #ffffff, 
+-4px -4px 10px #403f3f;
+}
 
 /*Customized label Title*/
 .label {
- color: #00B16A;
- font-size: 25px;
- padding: 8px;
- font-family: 'Merriweather', serif;
- border: 1px solid #333333;
- box-shadow: -4px -4px 12px #ffffff, 
- -4px -4px 10px #403f3f;
+color: #0af412;
+font-size: 25px;
+padding: 8px;
+font-family: 'Merriweather', serif;
+border: 1px solid #333333;
+box-shadow: -4px -4px 12px #ffffff, 
+-4px -4px 10px #403f3f;
 }
+
+/*Customized Header*/
+.header {
+  position: fixed;
+  left: 0;
+  top: 0;
+  display: flex;
+  justify-content: flex-start;
+  background-color: hsl(0, 0%, 82%);
+  padding: 30px 50px;
+  text-align: center;
+  font-size: 10px;
+  font-family: "Montserrat", sans-serif;
+  width: 100%;
+}
+
+.button {
+  font-size: 22px;
+  font-family: "Arial";
+  background: transparent;
+  border: none;
+  --border-right: 10px;
+  --text-stroke-color: black;
+  --fs-size: 2em;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--text-stroke-color);
+}
+
+/*Customized Footer*/
+  .footer {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: 0;
+    bottom: 0;
+    padding: 0px;
+    width: 100%;
+    background-color: black;
+    color: #ffffff;
+  }
+  p {
+    margin: 1rem;
+    font-size: 1.3rem;
+  }
+  
+  a {
+    color: white;
+    margin: 1rem;
+    font-size: 1.3rem;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    color: #0af412;
+  }
 
 /* Media query*/
 @media only screen and (max-width: 766px) {
 
 li {
- min-width: 250px;
+min-width: 250px;
   }
 
 h1{

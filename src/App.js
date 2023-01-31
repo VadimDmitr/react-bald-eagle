@@ -2,10 +2,13 @@ import React from 'react';
 import TodoList from "./TodoList";
 import AddTodoForm from "./AddTodoForm";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Header from "./Header";
+import Footer from "./Footer";
+
 
 const App = () => {
 
-  const [todoList, setTodoList] = React.useState([null]);
+  const [todoList, setTodoList] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
 
   React.useEffect(() => {
@@ -86,6 +89,7 @@ const App = () => {
   }
      return (
       <BrowserRouter>
+        <Header />
               <Routes>
                 <Route exact path="/" element={
                   <div>
@@ -94,7 +98,9 @@ const App = () => {
                       {isLoading ? (
                         <p>Loading ...</p>
                         ) : (
-                          <TodoList todoList={todoList} onRemoveTodo={removeTodo} />
+                          <TodoList 
+                          todoList={todoList} 
+                          onRemoveTodo={removeTodo} />
                           )}
                   </div>
                 } />
@@ -104,6 +110,9 @@ const App = () => {
                   </div>
                 } />
               </Routes>
+              <div>
+                <Footer />
+                </div>
           </BrowserRouter>
     );
 }
