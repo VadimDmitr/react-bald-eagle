@@ -36,16 +36,57 @@ const App = () => {
 
 
     const removeTodo = (id) => {
-    const newTodoList = todoList.filter(
-      (todo) => todo.id !== id
-    );
-    setTodoList(newTodoList);
-  };
+      // Make a DELETE request to Airtable API
+      fetch(`https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/Default/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`,
+        },
+      })
+        .then((response) => {
+          if (response.ok) {
+            // Filter the todoList array to remove the deleted todo
+            const newTodoList = todoList.filter(
+              (todo) => todo.id !== id
+            );
+            setTodoList(newTodoList);
+          } else {
+            throw new Error('Failed to delete ToDo from Airtable');
+          }
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
+    }
+
   function addTodo(newTodo) {
+    const data = {
+      "fields": {
+        "Title": newTodo.title,
+        "Description": newTodo.description,
+        "Due Date": newTodo.dueDate,
+        "Status": newTodo.status
+      }
+    }
 
-    setTodoList([...todoList, newTodo]);
-
+    // Make a POST request to Airtable API
+    fetch(`https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/Default`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        setTodoList([...todoList, result]);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
   }
+  
      return (
       <BrowserRouter>
               <Routes>
