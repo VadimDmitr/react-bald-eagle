@@ -186,12 +186,17 @@ a:hover {
   color: black;
 }
 
-.panel {
-  font-size: larger;
-  margin: 150px;
-  padding: 50px;
-  color: #f40a64;
-  background-color: #f40a64;
+.Panel {
+  display: grid;
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+  /*background-color: #0af412;*/
+  padding: 30px;
+  margin: 14px;
+  margin-left: 86px;
+  padding-left: 3px;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 

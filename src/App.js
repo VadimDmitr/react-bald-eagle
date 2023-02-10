@@ -37,9 +37,9 @@ const App = () => {
             </>
           } />
         </Routes>
-        <div>
-          <ControlPanel className={styles.panel}/>
-        </div>
+        <section className={styles.Panel}>
+          <ControlPanel />
+        </section>
           <Footer />
         </div>
       </BrowserRouter>
