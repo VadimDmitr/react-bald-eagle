@@ -2,12 +2,13 @@ import React from 'react';
 import TodoListItem from './TodoListItem';
 import style from './TodoListItem.module.css';
 
+
 const InputWithLabel = ({
   id,
   value,
   type = 'type',
   name = 'title',
-  onInputChange,
+  onChange,
   children,
 }) => {
   const inputRef = React.useRef();
@@ -25,7 +26,7 @@ const InputWithLabel = ({
         type = {type} 
         name = {name} 
         value={value}
-        onChange={onInputChange} 
+        onChange={onChange} 
         ref ={inputRef}
         className={style.input}
         placeholder="Add New ToDo"

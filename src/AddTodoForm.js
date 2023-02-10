@@ -1,38 +1,48 @@
-import React from 'react';
-import InputWithLabel from './InputWithLabel';
-import style from './TodoListItem.module.css';
+import React, { useState } from "react";
+import InputWithLabel from "./InputWithLabel";
+import PropTypes from "prop-types";
+import styles from "./TodoListItem.module.css";
+
 
 const AddTodoForm = ({ onAddTodo }) => {
-
-  const [todoTitle, setTodoTitle] = React.useState('');
-
+  const [todoTitle, setTodoTitle] = useState("");
   const handleTitleChange = (event) => {
-    const newTodoTitle = event.target.value;
-    setTodoTitle(newTodoTitle);
-  }
+    const newTodo = event.target.value;
+    setTodoTitle(newTodo);
+  };
 
   const handleAddTodo = (event) => {
     event.preventDefault();
-    console.log(todoTitle);
-    onAddTodo({title: todoTitle, id: Date.now()});
-    setTodoTitle('');
-  }
-  
+    //Prevent from spaces
+    const inputSpaces = todoTitle.trim();
+    if (inputSpaces === "") {
+      console.log("spaces from User");
+    } else {
+      onAddTodo({ fields: { Title: todoTitle } });
+      setTodoTitle("");
+    }
+  };
+
   return (
-    <div>
-      <form onSubmit={handleAddTodo}>
+    <form onSubmit={handleAddTodo}>
       <InputWithLabel
         id="todoTitle"
         value={todoTitle}
-        onInputChange={handleTitleChange}
+        onChange={handleTitleChange}
+        name="title"
+        placeholder="What to do?"
       >
-      Title:
+        {<strong>Title:</strong>}
       </InputWithLabel>
-         <input className={style.addButton} type="submit" value="Add" onChange={() => 
-          setTodoTitle('')}/>
-      </form>
-    </div>
+      <button type="submit" className={styles.addButton}>
+        Add
+      </button>
+    </form>
   );
-}
+};
+
+AddTodoForm.propTypes = {
+  onAddTodo: PropTypes.func,
+};
 
 export default AddTodoForm;

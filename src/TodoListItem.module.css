@@ -1,15 +1,7 @@
 /* Loaded in a font family from Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@900&display=swap');
 
-
-*, *::after, *::before{
-  margin: 10;
-  padding: 10;
-}
-
 body {
-/* Changed the background color* /
-  /* background-color: hsl(128deg 49% 63%); */
   padding-top: 65px;
   display: flex;
   flex-direction: column;
@@ -18,6 +10,12 @@ body {
   background-image: url('./image/8.jpg');
   background-size: cover;
   background-repeat: no-repeat;
+}
+
+.container {
+  display: flex;
+  color: #171212;
+  margin: 30px 0;
 }
 
 /* Customized List Item */
@@ -36,7 +34,7 @@ body {
   box-shadow: -7px -7px 15px #ffffff, 
   -7px -7px 15px #403f3f;
   max-width: 500px;
-  min-width: 450px;
+  min-width: 550px;
 }
 
 /* Added effect on input field */
@@ -45,7 +43,7 @@ body {
   margin: 20px;
   font-size: medium;
   font-weight: bold;
-  width: 300px;
+  width: 390px;
   padding: 0.5rem;
   border-radius: 5px;
   /* border: 1px solid #333333;
@@ -55,7 +53,7 @@ body {
   }
   
   /* Added effect on remove button */
-  .removeButton {
+.removeButton {
   font-family: 'Merriweather', serif;
   padding: 0.5rem 1rem;
   background: linear-gradient(to right, #505050, #131313);
@@ -69,7 +67,7 @@ body {
   }
   
   /* Customized Add button */
-  .addButton {
+.addButton {
   width: 80px; 
   font-family: 'Merriweather', serif;
   padding: 0.5rem 1rem;
@@ -84,7 +82,6 @@ body {
   box-shadow: inset -4px -4px 10px #ffffff, inset-4px -4px 10px #403f3f;
   box-shadow: -4px -4px 10px #ffffff, -4px -4px 10px #403f3f;
   }
-
 
 /* Changed the font size, weight, and color of heading ToDo List */
 h1{
@@ -141,33 +138,62 @@ h1{
 }
 
 /* Customized Footer */
-  .footer {
-    position: fixed;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    left: 0;
-    bottom: 0;
-    padding: 0px;
-    width: 100%;
-    background-color: black;
-    color: #ffffff;
+.footer {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  left: 0;
+  bottom: 0;
+  padding: 0px;
+  width: 100%;
+  background-color: black;
+  color: #ffffff;
   }
-  p {
-    margin: 1rem;
-    font-size: 1.3rem;
-  }
-  
-  a {
-    color: white;
-    margin: 1rem;
-    font-size: 1.3rem;
-    text-decoration: none;
+p {
+  margin: 1rem;
+  font-size: 1.3rem;
   }
   
-  a:hover {
-    color: #0af412;
+a {
+  color: white;
+  margin: 1rem;
+  font-size: 1.3rem;
+  text-decoration: none;
   }
+  
+a:hover {
+  color: #0af412;
+  }
+
+.ControlPanel {
+  background-color: hsl(0, 0%, 82%);
+  display: flex;
+  flex-wrap: wrap;
+  flex-grow: 1;
+  justify-content: center;
+  align-items: center;
+  margin: 50px;
+  width: 147px;
+  height: 59px;
+  font-size: 25px;
+  border-radius: 20px;
+  box-shadow: 9px 9px 25px #14312f, -9px -9px 25px #ffffff;
+  margin-left: 150px;
+}
+
+.airButton {
+  color: black;
+}
+
+.panel {
+  font-size: larger;
+  margin: 150px;
+  padding: 50px;
+  color: #f40a64;
+  background-color: #f40a64;
+}
+
 
 /* Media query */
 @media only screen and (max-width: 766px) {
