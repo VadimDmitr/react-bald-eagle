@@ -1,73 +1,50 @@
 import React from 'react';
+import ControlPanel from './ControlPanel';
 import TodoList from "./TodoList";
-import AddTodoForm from "./AddTodoForm";
+import Header from './Header';
+import Footer from "./Footer";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import MyListContainer from './MyListContainer';
+import styles from "./TodoListItem.module.css";
+
 
 const App = () => {
 
-  const [todoList, setTodoList] = React.useState([null]);
-  const [isLoading, setIsLoading] = React.useState(true);
-
-  React.useEffect(() => {
-    fetch(`https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/Default`, {
-      headers: { Authorization : `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`,
-      }
-    })
-    /*new Promise((resolve, reject) =>
-    setTimeout(
-      () => resolve({ data: { todoList: JSON.parse(localStorage.getItem('savedTodoList')) } }),
-      2000
-    ))*/
-    .then((response) => response.json())
-    .then((result) => {
-      setTodoList(result.records || []);
-      setIsLoading(false);
-    });
-      //reject({ data: { todoList: initialStories } })
-  }, []);
-
-  React.useEffect(() => {
-    if (isLoading === false) {
-
-      localStorage.setItem('savedTodoList', JSON.stringify(todoList));
-    }
-    }, [todoList, isLoading]);
-  
-
-
-    const removeTodo = (id) => {
-    const newTodoList = todoList.filter(
-      (todo) => todo.id !== id
-    );
-    setTodoList(newTodoList);
-  };
-  function addTodo(newTodo) {
-
-    setTodoList([...todoList, newTodo]);
-
-  }
-     return (
+  return (
+    <div>
       <BrowserRouter>
-              <Routes>
-                <Route exact path="/" element={
-                  <div>
-                    <h1>Todo List: </h1>
-                    <AddTodoForm onAddTodo={addTodo} />
-                      {isLoading ? (
-                        <p>Loading ...</p>
-                        ) : (
-                          <TodoList todoList={todoList} onRemoveTodo={removeTodo} />
-                          )}
-                  </div>
-                } />
-                <Route path="/new" element={
-                  <div>
-                    <h1>New Todo List: </h1>
-                  </div>
-                } />
-              </Routes>
-          </BrowserRouter>
-    );
-}
+        <Header />
+        <div className={styles.container}>
+        <Routes>
+          <Route exact path="/" element={
+            <>
+              <MyListContainer listTableName = "General"/>
+            </>
+          } />
+          <Route path="/My Home" element={
+            <>
+              <MyListContainer listTableName= "My Home"/>
+            </>
+          } />
+          <Route path="/My Classes" element={
+            <>
+              <MyListContainer listTableName= "My Classes"/>
+            </>
+          } />
+          <Route path="/My Work" element={
+            <>
+              <MyListContainer listTableName= "My Work"/>
+            </>
+          } />
+        </Routes>
+        <section className={styles.Panel}>
+          <ControlPanel />
+        </section>
+          <Footer />
+        </div>
+      </BrowserRouter>
+    </div>
+  );
+};
 
 export default App;

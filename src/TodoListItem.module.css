@@ -1,0 +1,229 @@
+/* Loaded in a font family from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@900&display=swap');
+
+body {
+  padding-top: 65px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-image: url('./image/8.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.container {
+  display: flex;
+  color: #171212;
+  margin: 30px 0;
+}
+
+/* Customized List Item */
+.ListItem {
+  font-family: 'Merriweather', serif;
+  font-weight: bold;
+  font-size:18px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  list-style-type: none;
+  margin: 15px 0;
+  border-radius: 10px;
+  padding: 15px;
+  background-color: #d1d1d1dd;
+  box-shadow: -7px -7px 15px #ffffff, 
+  -7px -7px 15px #403f3f;
+  max-width: 500px;
+  min-width: 550px;
+}
+
+/* Added effect on input field */
+.input {
+  font-family: 'Merriweather', serif;
+  margin: 20px;
+  font-size: medium;
+  font-weight: bold;
+  width: 390px;
+  padding: 0.5rem;
+  border-radius: 5px;
+  /* border: 1px solid #333333;
+  background-color: #F2F2F2; */
+  box-shadow: -4px -4px 12px #ffffff, 
+  -4px -4px 10px #403f3f;
+  }
+  
+  /* Added effect on remove button */
+.removeButton {
+  font-family: 'Merriweather', serif;
+  padding: 0.5rem 1rem;
+  background: linear-gradient(to right, #505050, #131313);
+  color: white;
+  border-radius: 8px;
+  border: none;
+  font-size: 0.85rem;
+  cursor: pointer;
+  box-shadow: 4px 4px 10px #ffffff, 
+  -4px -4px 12px #313030;
+  }
+  
+  /* Customized Add button */
+.addButton {
+  width: 80px; 
+  font-family: 'Merriweather', serif;
+  padding: 0.5rem 1rem;
+  /* Added gradient background */
+  background: linear-gradient(to right, #2ac386, #0af412);
+  padding: 0.5rem 1rem;
+  color: white;
+  border-radius: 5px;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: inset -4px -4px 10px #ffffff, inset-4px -4px 10px #403f3f;
+  box-shadow: -4px -4px 10px #ffffff, -4px -4px 10px #403f3f;
+  }
+
+/* Changed the font size, weight, and color of heading ToDo List */
+h1{
+  display:flex;
+  padding: 10px;
+  padding-left: 190px;
+  align-items: center;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #0af412;
+  border: 1px solid #333333;
+  box-shadow: -4px -4px 12px #ffffff, 
+  -4px -4px 10px #403f3f;
+}
+
+/* Customized label Title */
+.label {
+  color: #0af412;
+  font-size: 25px;
+  padding: 8px;
+  font-family: 'Merriweather', serif;
+  border: 1px solid #333333;
+  box-shadow: -4px -4px 12px #ffffff, 
+  -4px -4px 10px #403f3f;
+}
+
+/* Customized Header */
+.header {
+  position: fixed;
+  left: 0;
+  top: 0;
+  display: flex;
+  justify-content: flex-start;
+  background-color: hsl(0, 0%, 82%);
+  padding: 20px 50px;
+  text-align: center;
+  font-size: 10px;
+  font-family: "Montserrat", sans-serif;
+  width: 100%;
+}
+
+.button {
+  font-size: 22px;
+  font-family: "Arial";
+  background: transparent;
+  border: none;
+  --border-right: 10px;
+  --text-stroke-color: black;
+  --fs-size: 2em;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--text-stroke-color);
+}
+
+/* Customized Footer */
+.footer {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  left: 0;
+  bottom: 0;
+  padding: 0px;
+  width: 100%;
+  background-color: black;
+  color: #ffffff;
+  }
+p {
+  margin: 1rem;
+  font-size: 1.3rem;
+  }
+  
+a {
+  color: white;
+  margin: 1rem;
+  font-size: 1.3rem;
+  text-decoration: none;
+  }
+  
+a:hover {
+  color: #0af412;
+  }
+
+.ControlPanel {
+  background-color: hsl(0, 0%, 82%);
+  display: flex;
+  flex-wrap: wrap;
+  flex-grow: 1;
+  justify-content: center;
+  align-items: center;
+  margin: 50px;
+  width: 147px;
+  height: 59px;
+  font-size: 25px;
+  border-radius: 20px;
+  box-shadow: 9px 9px 25px #14312f, -9px -9px 25px #ffffff;
+  margin-left: 150px;
+}
+
+.airButton {
+  color: black;
+}
+
+.Panel {
+  display: grid;
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+  /*background-color: #0af412;*/
+  padding: 30px;
+  margin: 14px;
+  margin-left: 86px;
+  padding-left: 3px;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+
+/* Media query */
+@media only screen and (max-width: 766px) {
+
+.ListItem {
+  min-width: 250px;
+  }
+
+h1{
+  padding-left: 130px;
+  border: 70ch;
+  }
+
+.label {
+  padding-left: 180px;
+  padding-right: 180px;
+  border: 70ch;
+  }
+
+.input {
+  padding: 10px;
+  }
+
+.addButton {
+  width: 64px;
+  }
+}
+  

@@ -1,12 +1,14 @@
 import React from 'react';
 import TodoListItem from './TodoListItem';
+import style from './TodoListItem.module.css';
+
 
 const InputWithLabel = ({
   id,
   value,
   type = 'type',
   name = 'title',
-  onInputChange,
+  onChange,
   children,
 }) => {
   const inputRef = React.useRef();
@@ -17,14 +19,17 @@ const InputWithLabel = ({
 
   return (
     <>
-      <label htmlFor={id}>{children}</label>
+      <label htmlFor={id} className={style.label}>{children}</label>
       &nbsp;
       <input 
         id={id} 
         type = {type} 
         name = {name} 
-        onChange={onInputChange} 
+        value={value}
+        onChange={onChange} 
         ref ={inputRef}
+        className={style.input}
+        placeholder="Add New ToDo"
       />
     </>
 );
