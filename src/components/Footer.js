@@ -5,8 +5,8 @@ import { FaGithubSquare } from "react-icons/fa";
 
 
 function Footer() {
-  let today = new Date();
-  let thisYear = today.getFullYear();
+  /*let today = new Date();
+  let thisYear = today.getFullYear();*/
   return (
     <footer className={styles.footer}>
       <a href="https://codethedream.org/" target="_blank">

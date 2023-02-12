@@ -1,11 +1,12 @@
 import React from 'react';
-import ControlPanel from './ControlPanel';
-import TodoList from "./TodoList";
-import Header from './Header';
-import Footer from "./Footer";
+import ControlPanel from './components/ControlPanel';
+import TodoList from "./components/TodoList";
+import Header from './components/Header';
+import Footer from "./components/Footer";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import MyListContainer from './MyListContainer';
-import styles from "./TodoListItem.module.css";
+import MyListContainer from './components/MyListContainer';
+import styles from "./components/TodoListItem.module.css";
+
 
 
 const App = () => {

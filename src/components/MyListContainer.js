@@ -3,6 +3,7 @@ import InputWithLabel from './InputWithLabel';
 import style from './TodoListItem.module.css';
 import AddTodoForm from './AddTodoForm';
 import TodoList from './TodoList';
+import PropTypes from "prop-types";
 
 const MyListContainer = ({ listTableName }) => {
 
@@ -50,8 +51,8 @@ const MyListContainer = ({ listTableName }) => {
     "Description": newTodo.description,
     "Due Date": newTodo.dueDate,
     "Status": newTodo.status
-     }
-   }
+    }
+  }
     addListItem(newTodo);
   }
 
@@ -97,7 +98,7 @@ const MyListContainer = ({ listTableName }) => {
         console.error('Error:', error);
       });
   }
- 
+
   return (
     // <div className={styles.todoContainer}>
     <div>
@@ -119,5 +120,9 @@ const MyListContainer = ({ listTableName }) => {
     </div>
   );
 }
+
+MyListContainer.propTypes = {
+  listTableName: PropTypes.string,
+};
 
 export default MyListContainer;
