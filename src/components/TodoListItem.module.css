@@ -15,26 +15,61 @@ body {
 .container {
   display: flex;
   color: #171212;
-  margin: 30px 0;
+  margin: -30px;
+  margin-left: 70px;
 }
 
 /* Customized List Item */
 .ListItem {
-  font-family: 'Merriweather', serif;
   font-weight: bold;
-  font-size:18px;
+  color:#131313;
   display: flex;
   justify-content: space-between;
-  flex-direction: row;
-  list-style-type: none;
   margin: 15px 0;
+  margin-left: -30px;
+  height: 93px;
+  border-radius: 10px;
+  padding: 0px;
+  background-color: #fffefedd;
+  box-shadow: -7px -7px 15px #ffffff, 
+  -7px -7px 15px #403f3f;  
+}
+
+.title {
+  margin-bottom: 5px;
+  font-weight: bold;
+  color:#131313;
+  font-size: 21px;
+  margin: 22px 0;
   border-radius: 10px;
   padding: 15px;
-  background-color: #d1d1d1dd;
-  box-shadow: -7px -7px 15px #ffffff, 
-  -7px -7px 15px #403f3f;
-  max-width: 500px;
-  min-width: 550px;
+  height: 19px;
+  background-color: #c1bfbfdd;
+  box-shadow: -7px -8px 5px 0px #ffffff, -7px -7px 15px 2px #403f3f;
+  min-width: 430px;
+  margin-left: 20px;
+  justify-content: start;
+  letter-spacing: 0.3px;
+  border: 1px solid #333333;
+}
+
+.notes {
+  margin-bottom: 5px;
+  font-weight: bold;
+  color:#131313;
+  font-size: 21px;
+  margin: 22px 0;
+  border-radius: 10px;
+  padding: 15px;
+  height: 19px;
+  background-color: #c1bfbfdd;
+  box-shadow: -7px -8px 5px 0px #ffffff, -7px -7px 15px 2px #403f3f;
+  min-width: 390px;
+  margin-left: 15px;
+  justify-content: start;
+  letter-spacing: 0.3px;
+  border: 1px solid #333333;
+  
 }
 
 /* Added effect on input field */
@@ -43,27 +78,27 @@ body {
   margin: 20px;
   font-size: medium;
   font-weight: bold;
-  width: 390px;
+  width: 355px;
   padding: 0.5rem;
   border-radius: 5px;
   /* border: 1px solid #333333;
   background-color: #F2F2F2; */
-  box-shadow: -4px -4px 12px #ffffff, 
-  -4px -4px 10px #403f3f;
+  box-shadow: -7px -7px 7px 3px #ffffff, -7px -7px 15px #403f3f;
   }
   
   /* Added effect on remove button */
 .removeButton {
   font-family: 'Merriweather', serif;
-  padding: 0.5rem 1rem;
-  background: linear-gradient(to right, #505050, #131313);
+  padding: 9.5px 23px;
+  margin: 30px;
+  margin-left: 23px;
+  background: linear-gradient(to right, #595858, #030000);
   color: white;
   border-radius: 8px;
   border: none;
   font-size: 0.85rem;
   cursor: pointer;
-  box-shadow: 4px 4px 10px #ffffff, 
-  -4px -4px 12px #313030;
+  box-shadow: -7px -8px 5px 0px #3c3737, -7px -7px 15px 2px #403f3f
   }
   
   /* Customized Add button */
@@ -71,6 +106,7 @@ body {
   width: 80px; 
   font-family: 'Merriweather', serif;
   padding: 0.5rem 1rem;
+  margin-left: 15px;
   /* Added gradient background */
   background: linear-gradient(to right, #2ac386, #0af412);
   padding: 0.5rem 1rem;
@@ -87,7 +123,7 @@ body {
 h1{
   display:flex;
   padding: 10px;
-  padding-left: 190px;
+  padding-left: 390px;
   align-items: center;
   font-size: 2rem;
   font-weight: bold;
@@ -124,13 +160,15 @@ h1{
 }
 
 .button {
-  font-size: 22px;
+  font-size: 24px;
   font-family: "Arial";
   background: transparent;
+  box-shadow: 0px 0px 7px 17px #edebeb, -7px -7px 15px #403f3f;
   border: none;
   --border-right: 10px;
   --text-stroke-color: black;
   --fs-size: 2em;
+  border-radius: 10px;
   letter-spacing: 4px;
   text-transform: uppercase;
   color: transparent;
@@ -150,6 +188,7 @@ h1{
   background-color: black;
   color: #ffffff;
   }
+
 p {
   margin: 1rem;
   font-size: 1.3rem;
@@ -168,37 +207,37 @@ a:hover {
 
 .ControlPanel {
   background-color: hsl(0, 0%, 82%);
+  color:#131313;
+  font-weight: bold;
   display: flex;
   flex-wrap: wrap;
   flex-grow: 1;
   justify-content: center;
   align-items: center;
   margin: 50px;
-  width: 147px;
+  width: 160px;
   height: 59px;
   font-size: 25px;
   border-radius: 20px;
-  box-shadow: 9px 9px 25px #14312f, -9px -9px 25px #ffffff;
+  box-shadow: -7px -7px 7px 3px #ffffff, -7px -7px 15px #403f3f;
   margin-left: 150px;
+  border: 1px solid #333333;
 }
 
-.airButton {
-  color: black;
+.active {
+  background-color: #0af412;
+  color: white;
 }
 
 .Panel {
-  display: grid;
-  grid-column: 1 / 2;
-  grid-row: 1 / 2;
   /*background-color: #0af412;*/
-  padding: 30px;
+  padding: 60px;
   margin: 14px;
-  margin-left: 86px;
+  margin-left: -30px;
   padding-left: 3px;
   background-size: cover;
   background-repeat: no-repeat;
 }
-
 
 /* Media query */
 @media only screen and (max-width: 766px) {

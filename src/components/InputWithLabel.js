@@ -1,8 +1,7 @@
 import React from 'react';
-import TodoListItem from './TodoListItem';
-import style from './TodoListItem.module.css';
+//import TodoListItem from './TodoListItem';
+import styles from './TodoListItem.module.css';
 import PropTypes from "prop-types";
-
 
 const InputWithLabel = ({
   id,
@@ -11,6 +10,7 @@ const InputWithLabel = ({
   name = 'title',
   onChange,
   children,
+  placeholder
 }) => {
   const inputRef = React.useRef();
 
@@ -20,7 +20,7 @@ const InputWithLabel = ({
 
   return (
     <>
-      <label htmlFor={id} className={style.label}>{children}</label>
+      <label htmlFor={id} className={styles.label}>{children}</label>
       &nbsp;
       <input 
         id={id} 
@@ -29,15 +29,15 @@ const InputWithLabel = ({
         value={value}
         onChange={onChange} 
         ref ={inputRef}
-        className={style.input}
-        placeholder="Add New ToDo"
+        className={styles.input}
+        placeholder={placeholder}
       />
     </>
 );
   };
 
   InputWithLabel.propTypes = {
-    children: PropTypes.string,
+    children: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.object]),
     todoTitle: PropTypes.string,
     handleTitleChange: PropTypes.func,
 };

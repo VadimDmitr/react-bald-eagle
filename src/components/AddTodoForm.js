@@ -3,23 +3,35 @@ import InputWithLabel from "./InputWithLabel";
 import PropTypes from "prop-types";
 import styles from "./TodoListItem.module.css";
 
-
 const AddTodoForm = ({ onAddTodo }) => {
   const [todoTitle, setTodoTitle] = useState("");
+  const [todoDescription, setTodoDescription] = useState("");
+
   const handleTitleChange = (event) => {
-    const newTodo = event.target.value;
-    setTodoTitle(newTodo);
+    const newTodoTitle = event.target.value;
+    setTodoTitle(newTodoTitle);
+  };
+
+  const handleDescriptionChange = (event) => {
+    const newTodoDescription = event.target.value;
+    setTodoDescription(newTodoDescription);
   };
 
   const handleAddTodo = (event) => {
     event.preventDefault();
-    //Prevent from spaces
-    const inputSpaces = todoTitle.trim();
-    if (inputSpaces === "") {
-      console.log("spaces from User");
+    // Prevent from spaces
+    const inputSpacesTitle = todoTitle.trim();
+    if (inputSpacesTitle === "") {
+      console.log("Title is empty");
     } else {
-      onAddTodo({ fields: { Title: todoTitle } });
+      onAddTodo({
+        fields: {
+          Title: todoTitle,
+          Description: todoDescription,
+        },
+      });
       setTodoTitle("");
+      setTodoDescription("");
     }
   };
 
@@ -33,6 +45,14 @@ const AddTodoForm = ({ onAddTodo }) => {
         placeholder="What to do?"
       >
         {<strong>Title:</strong>}
+      </InputWithLabel>
+      <InputWithLabel
+        id="todoDescription"
+        value={todoDescription}
+        onChange={handleDescriptionChange}
+        name="description"
+        placeholder="Notes"
+      >
       </InputWithLabel>
       <button type="submit" className={styles.addButton}>
         Add
