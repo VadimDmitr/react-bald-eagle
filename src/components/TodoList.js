@@ -15,8 +15,9 @@ const TodoList = ({todoList, onRemoveTodo }) => {
     </ul>
   );
 }
-TodoListItem.propTypes = {
-  onAddTodo: PropTypes.func,
+TodoList.propTypes = {
+  todoList: PropTypes.array,
+  onRemoveTodo: PropTypes.func
 };
 
 export default TodoList;
