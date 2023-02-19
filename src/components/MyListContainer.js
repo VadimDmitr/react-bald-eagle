@@ -1,19 +1,21 @@
 import React from 'react';
-import InputWithLabel from './InputWithLabel';
-import style from './TodoListItem.module.css';
+//import InputWithLabel from './InputWithLabel';
+//import style from './TodoListItem.module.css';
 import AddTodoForm from './AddTodoForm';
 import TodoList from './TodoList';
 import PropTypes from "prop-types";
 
 const MyListContainer = ({ listTableName }) => {
 
-  const [todoTitle, setTodoTitle] = React.useState('');
-  const [todoList, setTodoList] = React.useState([null]);
+/*const [todoTitle, setTodoTitle] = React.useState('');*/
+const [todoList, setTodoList] = React.useState([true]);
 
-  const handleTitleChange = (event) => {
-    const newTodoTitle = event.target.value;
-    setTodoTitle(newTodoTitle);
-  }
+/*  
+const handleTitleChange = (event) => {
+const newTodoTitle = event.target.value;
+setTodoTitle(newTodoTitle);
+}
+*/
 
   const [isLoading, setIsLoading] = React.useState(true);
 
@@ -26,6 +28,7 @@ const MyListContainer = ({ listTableName }) => {
     })
       .then((response) => response.json())
       .then((result) => {
+        console.log(result); 
         setTodoList(result.records || []);
         setIsLoading(false);
       });
@@ -37,22 +40,23 @@ const MyListContainer = ({ listTableName }) => {
     }
   }, [todoList, isLoading]);
 
+  /*
   const handleAddTodo = (event) => {
     event.preventDefault();
     console.log(todoTitle);
     addTodo({ title: todoTitle, id: Date.now() });
     setTodoTitle('');
   }
+  */
 
   function addTodo(newTodo) {
     const data = {
-    "fields": {
-    "Title": newTodo.title,
-    "Description": newTodo.description,
-    "Due Date": newTodo.dueDate,
-    "Status": newTodo.status
-    }
-  }
+      fields: {
+        Title: newTodo.title,
+        Description: newTodo.description,
+        "Due Date": newTodo.dueDate,
+      },
+    };
     addListItem(newTodo);
   }
 
