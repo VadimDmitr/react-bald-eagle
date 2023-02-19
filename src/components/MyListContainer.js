@@ -1,63 +1,77 @@
-import React from 'react';
-//import InputWithLabel from './InputWithLabel';
-//import style from './TodoListItem.module.css';
+import React, { useState, useEffect } from 'react';
+import PropTypes from "prop-types";
 import AddTodoForm from './AddTodoForm';
 import TodoList from './TodoList';
-import PropTypes from "prop-types";
+
 
 const MyListContainer = ({ listTableName }) => {
+  const [todoList, setTodoList] = useState([]);
 
-/*const [todoTitle, setTodoTitle] = React.useState('');*/
-const [todoList, setTodoList] = React.useState([true]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await fetch(`https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/${encodeURIComponent(listTableName)}`, {
+        headers: {
+          Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`,
+        },
+      }).then((response) => response.json());
 
-/*  
-const handleTitleChange = (event) => {
-const newTodoTitle = event.target.value;
-setTodoTitle(newTodoTitle);
-}
-*/
+      setTodoList(result.records);
+    };
 
-  const [isLoading, setIsLoading] = React.useState(true);
-
-  React.useEffect(() => {
-
-    fetch(`https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/${encodeURIComponent(listTableName)}`, {
-      headers: {
-        Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`,
-      }
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        console.log(result); 
-        setTodoList(result.records || []);
-        setIsLoading(false);
-      });
+    fetchData();
   }, [listTableName]);
 
-  React.useEffect(() => {
-    if (isLoading === false) {
-      localStorage.setItem('savedTodoList', JSON.stringify(todoList));
+  useEffect(() => {
+    if (listTableName === "General") {
+      localStorage.setItem('savedGeneralList', JSON.stringify(todoList));
     }
-  }, [todoList, isLoading]);
+  }, [todoList, listTableName]);
 
-  /*
-  const handleAddTodo = (event) => {
-    event.preventDefault();
-    console.log(todoTitle);
-    addTodo({ title: todoTitle, id: Date.now() });
-    setTodoTitle('');
-  }
-  */
+  useEffect(() => {
+    if (listTableName === "General") {
+      const savedGeneralList = JSON.parse(localStorage.getItem('savedGeneralList'));
+      if (savedGeneralList) {
+        setTodoList(savedGeneralList);
+      }
+    }
+  }, [listTableName]);
 
-  function addTodo(newTodo) {
+  const addTodo = (newTodo) => {
     const data = {
       fields: {
         Title: newTodo.title,
         Description: newTodo.description,
-        "Due Date": newTodo.dueDate,
       },
     };
-    addListItem(newTodo);
+    
+    // Add the newTodo to the current section
+    addListItem(newTodo, listTableName);
+    
+    // If the current section is not General, add the newTodo to General
+    if (listTableName !== "General") {
+      addListItem(newTodo, "General");
+    }
+  }
+
+  const addListItem = (newTodo, section) => {
+    fetch(`https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/${encodeURIComponent(section)}`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newTodo),
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        // If the section is General, add the newTodo to todoList state
+        if (section === "General") {
+          setTodoList([...todoList, result]);
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
   }
 
   const removeTodo = (id) => {
@@ -75,6 +89,17 @@ setTodoTitle(newTodoTitle);
             (todo) => todo.id !== id
           );
           setTodoList(newTodoList);
+    
+          // Remove the deleted todo from General list
+          removeListItem(id, "General");
+    
+          // Remove the deleted todo from other lists
+          const sections = ["My Work", "My Home", "My Classes"];
+          sections.forEach((section) => {
+            if (section !== listTableName) {
+              removeListItem(id, section);
+            }
+          });
         } else {
           throw new Error('Failed to delete ToDo from Airtable');
         }
@@ -82,51 +107,107 @@ setTodoTitle(newTodoTitle);
       .catch((error) => {
         console.error('Error:', error);
       });
-  }
+  };
+  
+  const removeListItem = (id, section) => {
+    console.log(`Removing todo with id ${id} from ${section} section`);
+  
+    const generalSection = "General";
 
-  // Make a POST request to Airtable API
-  const addListItem = (listItemData) => {
-    fetch(`https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/${encodeURIComponent(listTableName)}`, {
-      method: 'POST',
+    // Make a GET request to Airtable API to get the record id in the General section
+    fetch(`https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/${generalSection}?filterByFormula={Record ID}="${id}"`, {
       headers: {
         'Authorization': `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`,
-        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(listItemData),
     })
       .then((response) => response.json())
       .then((result) => {
-        setTodoList([...todoList, result]);
+        if (result && result.records && result.records.length > 0) {
+          // If the record exists, make a DELETE request to Airtable API to remove it
+          // from both the current section and the General section
+          const recordId = result.records[0].id;
+          const requests = [
+            fetch(`https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/${encodeURIComponent(section)}/${recordId}`, {
+              method: 'DELETE',
+              headers: {
+                'Authorization': `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`,
+              },
+            }),
+            fetch(`https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/${generalSection}/${recordId}`, {
+              method: 'DELETE',
+              headers: {
+                'Authorization': `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`,
+              },
+            }),
+          ];
+
+          Promise.all(requests)
+            .then((responses) => {
+              const deleteSuccess = responses.every((response) => response.ok);
+              if (deleteSuccess) {
+                console.log(`Removed todo ${id} from ${section} and ${generalSection} section`);
+              } else {
+                throw new Error(`Failed to delete todo ${id} from ${section} or ${generalSection} section`);
+              }
+            })
+            .then(() => {
+              // If the section is General, update the todoList state
+              if (section === "General") {
+                const newTodoList = todoList.filter((todo) => todo.id !== id);
+                setTodoList(newTodoList);
+              }
+            })
+            .catch((error) => {
+              console.error('Error:', error);
+            });
+        } else {
+          // If the record doesn't exist in the General section, only delete the record from the current section
+          fetch(`https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/${encodeURIComponent(section)}/${id}`, {
+            method: 'DELETE',
+            headers: {
+              'Authorization': `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`,
+            },
+          })
+            .then((response) => {
+              if (response.ok) {
+                console.log(`Removed todo ${id} from ${section} section`);
+              } else {
+                throw new Error(`Failed to delete todo ${id} from ${section} section`);
+              }
+            })
+            .then(() => {
+              // If the section is General, update the todoList state
+              if (section === "General") {
+                const newTodoList = todoList.filter((todo) => todo.id !== id);
+                setTodoList(newTodoList);
+              }
+            })
+            .catch((error) => {
+              console.error('Error:', error);
+            });
+        }
       })
       .catch((error) => {
         console.error('Error:', error);
       });
-  }
-
+  };
+  
   return (
-    // <div className={styles.todoContainer}>
     <div>
-    <h1>{listTableName} List </h1>
+      <h1>{listTableName} List </h1>
 
-    <AddTodoForm onAddTodo={addTodo} />
+      <AddTodoForm onAddTodo={addTodo} />
 
-    {isLoading ? (
-      <p>Loading...</p>
-    ) : (
-      <TodoList
-        todoList={todoList}
-        //onChange={updateTodo}
-        onRemoveTodo={removeTodo}
-        //onComplete={handleToggleComplete}
-       // sortByTitle={sortByTitle}
-      />
-    )}
-    </div>
-  );
+<TodoList
+  todoList={todoList}
+  onRemoveTodo={removeTodo}
+/>
+</div>
+);
 }
 
 MyListContainer.propTypes = {
-  listTableName: PropTypes.string,
+listTableName: PropTypes.string,
 };
 
 export default MyListContainer;
