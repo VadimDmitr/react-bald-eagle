@@ -7,20 +7,47 @@ import { v4 as uuidv4 } from 'uuid';
 
 const MyListContainer = ({ listTableName }) => {
   const [todoList, setTodoList] = useState([]);
+  const [sortOrder, setSortOrder] = useState("asc");
+  const [sortField, setSortField] = useState("Title");
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await fetch(`https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/${encodeURIComponent(listTableName)}?view=Grid%20view`, {
+      const sortDirection = sortOrder === "asc" ? "asc" : "desc";
+      const result = await fetch(`https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/${encodeURIComponent(listTableName)}?view=Grid%20view&sort[0][field]=${sortField}&sort[0][direction]=${sortDirection}`, {
         headers: {
           Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`,
         },
-      }).then((response) => response.json());
-
-      setTodoList(result.records);
+      }).then((response) => response.json())
+        .then((data) => {
+          console.log("data:", data);
+          // Sort the records by the selected field with a custom callback function
+          data.records.sort((objectA, objectB) => {
+            if (sortOrder === "asc") {
+              if (objectA.fields[sortField] < objectB.fields[sortField]) {
+                return -1;
+              }
+              if (objectA.fields[sortField] > objectB.fields[sortField]) {
+                return 1;
+              }
+            } else {
+              if (objectA.fields[sortField] < objectB.fields[sortField]) {
+                return 1;
+              }
+              if (objectA.fields[sortField] > objectB.fields[sortField]) {
+                return -1;
+              }
+            }
+            return 0;
+          });
+    
+          // Set the sorted records to the todoList state
+          setTodoList(data.records);
+        });
     };
+    
 
-    fetchData();
-  }, [listTableName]);
+  fetchData();
+}, [listTableName, sortOrder, sortField]);
 
   useEffect(() => {
     if (listTableName === "General") {
@@ -102,14 +129,19 @@ const MyListContainer = ({ listTableName }) => {
   
   return (
     <div>
-      <h1>{listTableName} List </h1>
+  <h1>{listTableName} List </h1>
+  <button onClick={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}>
+    {sortOrder === "asc" ? "Sort Z-A" : "Sort A-Z"}
+  </button>
+  <button onClick={() => setSortField("createdTime")}>
+    Sort by createdTime
+  </button>
 
-      <AddTodoForm onAddTodo={addTodo} />
-
-<TodoList
-  todoList={todoList}
-  onRemoveTodo={removeTodo}
-/>
+  <AddTodoForm onAddTodo={addTodo} />
+  <TodoList
+    todoList={todoList}
+    onRemoveTodo={removeTodo}
+  />
 </div>
 );
 }
