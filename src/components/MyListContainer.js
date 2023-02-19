@@ -1,64 +1,80 @@
-import React from 'react';
-//import InputWithLabel from './InputWithLabel';
-//import style from './TodoListItem.module.css';
+import React, { useState, useEffect } from 'react';
+import PropTypes from "prop-types";
 import AddTodoForm from './AddTodoForm';
 import TodoList from './TodoList';
-import PropTypes from "prop-types";
+import { v4 as uuidv4 } from 'uuid';
+
 
 const MyListContainer = ({ listTableName }) => {
+  const [todoList, setTodoList] = useState([]);
 
-/*const [todoTitle, setTodoTitle] = React.useState('');*/
-const [todoList, setTodoList] = React.useState([true]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await fetch(`https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/${encodeURIComponent(listTableName)}`, {
+        headers: {
+          Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`,
+        },
+      }).then((response) => response.json());
 
-/*  
-const handleTitleChange = (event) => {
-const newTodoTitle = event.target.value;
-setTodoTitle(newTodoTitle);
-}
-*/
+      setTodoList(result.records);
+    };
 
-  const [isLoading, setIsLoading] = React.useState(true);
+    fetchData();
+  }, [listTableName]);
 
-  React.useEffect(() => {
+  useEffect(() => {
+    if (listTableName === "General") {
+      localStorage.setItem('savedGeneralList', JSON.stringify(todoList));
+    }
+  }, [todoList, listTableName]);
 
-    fetch(`https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/${encodeURIComponent(listTableName)}`, {
-      headers: {
-        Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`,
+  useEffect(() => {
+    if (listTableName === "General") {
+      const savedGeneralList = JSON.parse(localStorage.getItem('savedGeneralList'));
+      if (savedGeneralList) {
+        setTodoList(savedGeneralList);
       }
+    }
+  }, [listTableName]);
+
+  const addTodo = (newTodo) => {
+    const data = {
+      fields: {
+        id: uuidv4(),
+        Title: newTodo.title,
+        Description: newTodo.description,
+      },
+    };
+    
+    // Add the newTodo to the current section
+    addListItem(newTodo, listTableName);
+    
+    // If the current section is not General, add the newTodo to General
+    if (listTableName !== "General") {
+      addListItem(newTodo, "General");
+    }
+  }
+
+  const addListItem = (newTodo, section) => {
+    fetch(`https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/${encodeURIComponent(section)}`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newTodo),
     })
       .then((response) => response.json())
       .then((result) => {
-        console.log(result); 
-        setTodoList(result.records || []);
-        setIsLoading(false);
+        // If the section is General or the todoList state is empty, add the newTodo to todoList state
+        if (section === "General" || todoList.length === 0) {
+          setTodoList([...todoList, result]);
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
       });
-  }, [listTableName]);
-
-  React.useEffect(() => {
-    if (isLoading === false) {
-      localStorage.setItem('savedTodoList', JSON.stringify(todoList));
-    }
-  }, [todoList, isLoading]);
-
-  /*
-  const handleAddTodo = (event) => {
-    event.preventDefault();
-    console.log(todoTitle);
-    addTodo({ title: todoTitle, id: Date.now() });
-    setTodoTitle('');
-  }
-  */
-
-  function addTodo(newTodo) {
-    const data = {
-      fields: {
-        Title: newTodo.title,
-        Description: newTodo.description,
-        "Due Date": newTodo.dueDate,
-      },
-    };
-    addListItem(newTodo);
-  }
+  };
 
   const removeTodo = (id) => {
     // Make a DELETE request to Airtable API
@@ -83,50 +99,23 @@ setTodoTitle(newTodoTitle);
         console.error('Error:', error);
       });
   }
-
-  // Make a POST request to Airtable API
-  const addListItem = (listItemData) => {
-    fetch(`https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/${encodeURIComponent(listTableName)}`, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(listItemData),
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        setTodoList([...todoList, result]);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
-  }
-
+  
   return (
-    // <div className={styles.todoContainer}>
     <div>
-    <h1>{listTableName} List </h1>
+      <h1>{listTableName} List </h1>
 
-    <AddTodoForm onAddTodo={addTodo} />
+      <AddTodoForm onAddTodo={addTodo} />
 
-    {isLoading ? (
-      <p>Loading...</p>
-    ) : (
-      <TodoList
-        todoList={todoList}
-        //onChange={updateTodo}
-        onRemoveTodo={removeTodo}
-        //onComplete={handleToggleComplete}
-       // sortByTitle={sortByTitle}
-      />
-    )}
-    </div>
-  );
+<TodoList
+  todoList={todoList}
+  onRemoveTodo={removeTodo}
+/>
+</div>
+);
 }
 
 MyListContainer.propTypes = {
-  listTableName: PropTypes.string,
+listTableName: PropTypes.string,
 };
 
 export default MyListContainer;
