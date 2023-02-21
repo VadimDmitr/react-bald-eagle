@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import AddTodoForm from './AddTodoForm';
-import TodoList from './TodoList';
-import { v4 as uuidv4 } from 'uuid';
+import AddTodoForm from "./AddTodoForm";
+import TodoList from "./TodoList";
+import { v4 as uuidv4 } from "uuid";
 
 const MyListContainer = ({ listTableName }) => {
   const [todoList, setTodoList] = useState([]);
@@ -11,24 +11,55 @@ const MyListContainer = ({ listTableName }) => {
 
   const handleSortClick = () => {
     if (sortField !== "createdTime") {
-    if (sortOrder === "asc") {
-    setSortOrder("desc");
-    } else if (sortOrder === "desc") {
-    setSortOrder("asc");
+      if (sortOrder === "asc") {
+        setSortOrder("desc");
+      } else if (sortOrder === "desc") {
+        setSortOrder("asc");
+      }
     }
+    if (sortField === "Title") {
+      setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+    } else {
+      setSortField("Title");
+      setSortOrder("asc");
     }
-    };
-  
-    useEffect(() => {
-      const fetchData = async () => {
-        const result = await fetch(`https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/${encodeURIComponent(listTableName)}?view=Grid%20view&sort[0][field]=${sortField}&sort[0][direction]=${sortField === "createdTime" ? "desc" : sortOrder}`, {
+  };
+
+  const sortTodoListByTitle = (list, order) => {
+    list.sort((a, b) => {
+      const titleA = a.fields.Title.toUpperCase();
+      const titleB = b.fields.Title.toUpperCase();
+      if (titleA < titleB) {
+        return order === "asc" ? -1 : 1;
+      }
+      if (titleA > titleB) {
+        return order === "asc" ? 1 : -1;
+      }
+      return 0;
+    });
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await fetch(
+        `https://api.airtable.com/v0/${
+          process.env.REACT_APP_AIRTABLE_BASE_ID
+        }/${encodeURIComponent(
+          listTableName
+        )}?view=Grid%20view&sort[0][field]=${sortField}&sort[0][direction]=${
+          sortField === "createdTime" ? "desc" : sortOrder
+        }`,
+        {
           headers: {
             Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`,
           },
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            // Sort the records by the selected field with a custom callback function
+        }
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          if (sortField === "Title") {
+            sortTodoListByTitle(data.records, sortOrder);
+          } else {
             data.records.sort((objectA, objectB) => {
               if (sortOrder === "asc") {
                 if (objectA.fields[sortField] < objectB.fields[sortField]) {
@@ -47,24 +78,25 @@ const MyListContainer = ({ listTableName }) => {
               }
               return 0;
             });
-    
-            // Set the sorted records to the todoList state
-            setTodoList(data.records);
-          });
-      };
-      fetchData();
-    }, [listTableName, sortOrder, sortField]);
-    
+          }
+
+          setTodoList(data.records);
+        });
+    };
+    fetchData();
+  }, [listTableName, sortOrder, sortField]);
 
   useEffect(() => {
     if (listTableName === "General") {
-      localStorage.setItem('savedGeneralList', JSON.stringify(todoList));
+      localStorage.setItem("savedGeneralList", JSON.stringify(todoList));
     }
   }, [todoList, listTableName]);
 
   useEffect(() => {
     if (listTableName === "General") {
-      const savedGeneralList = JSON.parse(localStorage.getItem('savedGeneralList'));
+      const savedGeneralList = JSON.parse(
+        localStorage.getItem("savedGeneralList")
+      );
       if (savedGeneralList) {
         setTodoList(savedGeneralList);
       }
@@ -80,26 +112,30 @@ const MyListContainer = ({ listTableName }) => {
         createdTime: newTodo.createdTime,
       },
     };
-    
+
     // Add the newTodo to the current section
     addListItem(newTodo, listTableName);
-    
+
     // If the current section is not General, add the newTodo to General
     if (listTableName !== "General") {
       addListItem(newTodo, "General");
     }
-  }
-
+  };
 
   const addListItem = (newTodo, section) => {
-    fetch(`https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/${encodeURIComponent(section)}`, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(newTodo),
-    })
+    fetch(
+      `https://api.airtable.com/v0/${
+        process.env.REACT_APP_AIRTABLE_BASE_ID
+      }/${encodeURIComponent(section)}`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newTodo),
+      }
+    )
       .then((response) => response.json())
       .then((result) => {
         // If the section is General or the todoList state is empty, add the newTodo to todoList state
@@ -108,117 +144,141 @@ const MyListContainer = ({ listTableName }) => {
         }
       })
       .catch((error) => {
-        console.error('Error:', error);
+        console.error("Error:", error);
       });
   };
 
   const removeTodo = (id) => {
     // Make a DELETE request to Airtable API
-    fetch(`https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/${encodeURIComponent(listTableName)}/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Authorization': `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`,
-      },
-    })
-      .then((response) => {
-        if (response.ok) {
-          // Filter the todoList array to remove the deleted todo
-          const newTodoList = todoList.filter(
-            (todo) => todo.id !== id
-          );
-          setTodoList(newTodoList);
-  
-          // Check if the table name is not General and delete the record from the corresponding table
-          if (listTableName !== "General") {
-            const tableName = listTableName === "My Work" ? "Work" : listTableName;
-            fetch(`https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/${encodeURIComponent(tableName)}/${id}`, {
-              method: 'DELETE',
-              headers: {
-                'Authorization': `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`,
-              },
-            })
-              .then((response) => {
-                if (!response.ok) {
-                  throw new Error(`Failed to delete ToDo from ${tableName} table`);
-                }
-              })
-              .catch((error) => {
-                console.error('Error:', error);
-              });
-          }
-  
-          // Call the function to delete records from all tables by createdTime
-          const deletedRecord = todoList.find(todo => todo.id === id);
-          deleteRecordsByCreatedTime(deletedRecord.fields.createdTime);
-        } else {
-          throw new Error('Failed to delete ToDo from Airtable');
-        }
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
-  };
-  
-  const deleteRecordsByCreatedTime = (createdTime) => {
-    // Define the table names
-    const tableNames = ["General", "My Work", "My Classes", "My Home"];
-  
-    // Loop through the table names and make a GET request to fetch the records with the specified createdTime
-    tableNames.forEach((tableName) => {
-      fetch(`https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/${encodeURIComponent(tableName)}?filterByFormula={createdTime}='${createdTime}'&fields%5B%5D=createdTime`, {
+    fetch(
+      `https://api.airtable.com/v0/${
+        process.env.REACT_APP_AIRTABLE_BASE_ID
+      }/${encodeURIComponent(listTableName)}/${id}`,
+      {
+        method: "DELETE",
         headers: {
           Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`,
         },
+      }
+    )
+      .then((response) => {
+        if (response.ok) {
+          // Filter the todoList array to remove the deleted todo
+          const newTodoList = todoList.filter((todo) => todo.id !== id);
+          setTodoList(newTodoList);
+
+          // Check if the table name is not General and delete the record from the corresponding table
+          if (listTableName !== "General") {
+            const tableName =
+              listTableName === "My Work" ? "Work" : listTableName;
+            fetch(
+              `https://api.airtable.com/v0/${
+                process.env.REACT_APP_AIRTABLE_BASE_ID
+              }/${encodeURIComponent(tableName)}/${id}`,
+              {
+                method: "DELETE",
+                headers: {
+                  Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`,
+                },
+              }
+            )
+              .then((response) => {
+                if (!response.ok) {
+                  throw new Error(
+                    `Failed to delete ToDo from ${tableName} table`
+                  );
+                }
+              })
+              .catch((error) => {
+                console.error("Error:", error);
+              });
+          }
+
+          // Call the function to delete records from all tables by createdTime
+          const deletedRecord = todoList.find((todo) => todo.id === id);
+          deleteRecordsByCreatedTime(deletedRecord.fields.createdTime);
+        } else {
+          throw new Error("Failed to delete ToDo from Airtable");
+        }
       })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
+
+  const deleteRecordsByCreatedTime = (createdTime) => {
+    // Define the table names
+    const tableNames = ["General", "My Work", "My Classes", "My Home"];
+
+    // Loop through the table names and make a GET request to fetch the records with the specified createdTime
+    tableNames.forEach((tableName) => {
+      fetch(
+        `https://api.airtable.com/v0/${
+          process.env.REACT_APP_AIRTABLE_BASE_ID
+        }/${encodeURIComponent(
+          tableName
+        )}?filterByFormula={createdTime}='${createdTime}'&fields%5B%5D=createdTime`,
+        {
+          headers: {
+            Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`,
+          },
+        }
+      )
         .then((response) => response.json())
         .then((data) => {
           // Loop through the records and make a DELETE request to delete them
           data.records.forEach((record) => {
-            fetch(`https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/${encodeURIComponent(tableName)}/${record.id}`, {
-              method: 'DELETE',
-              headers: {
-                'Authorization': `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`,
-              },
-            })
+            fetch(
+              `https://api.airtable.com/v0/${
+                process.env.REACT_APP_AIRTABLE_BASE_ID
+              }/${encodeURIComponent(tableName)}/${record.id}`,
+              {
+                method: "DELETE",
+                headers: {
+                  Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`,
+                },
+              }
+            )
               .then((response) => {
                 if (!response.ok) {
-                  throw new Error(`Failed to delete record from ${tableName} table`);
+                  throw new Error(
+                    `Failed to delete record from ${tableName} table`
+                  );
                 }
               })
               .catch((error) => {
-                console.error('Error:', error);
+                console.error("Error:", error);
               });
           });
         });
     });
   };
-    
-  
+
   return (
     <div>
-  <h1>{listTableName} List </h1>
-  <button onClick={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}>
-    {sortOrder === "asc" ? "Sort Z-A" : "Sort A-Z"}
-  </button>
-  <button onClick={() => {
-  setSortField("createdTime");
-  handleSortClick();
-  }}>
-  Sort by createdTime
-</button>
+      <h1>{listTableName} List </h1>
+      <button
+        onClick={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}
+      >
+        {sortOrder === "asc" ? "Sort Z-A" : "Sort A-Z"}
+      </button>
+      <button
+        onClick={() => {
+          setSortField("createdTime");
+          handleSortClick();
+        }}
+      >
+        Sort by createdTime
+      </button>
 
-  <AddTodoForm onAddTodo={addTodo} />
-  <TodoList
-    todoList={todoList}
-    onRemoveTodo={removeTodo}
-  />
-</div>
-);
-}
+      <AddTodoForm onAddTodo={addTodo} />
+      <TodoList todoList={todoList} onRemoveTodo={removeTodo} />
+    </div>
+  );
+};
 
 MyListContainer.propTypes = {
-listTableName: PropTypes.string,
+  listTableName: PropTypes.string,
 };
 
 export default MyListContainer;
-  
