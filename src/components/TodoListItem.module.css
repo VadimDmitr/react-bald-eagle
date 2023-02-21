@@ -19,8 +19,42 @@ body {
   margin-left: 70px;
 }
 
+.title {
+  margin-bottom: 5px;
+  color:#131313;
+  margin: 22px 0;
+  border-radius: 10px;
+  padding: 15px;
+  height: 19px;
+  background-color: #c1bfbfdd;
+  box-shadow: 3px -5px 7px 3px #ffffff, -7px -7px 15px #403f3f;
+  min-width: 430px;
+  margin-left: 20px;
+  justify-content: start;
+  letter-spacing: 0.3px;
+  border: 1px solid #333333;
+}
+
+.notes {
+  margin-bottom: 5px;
+  color:#131313;
+  margin: 22px 0;
+  border-radius: 10px;
+  padding: 15px;
+  height: 19px;
+  background-color: #c1bfbfdd;
+  box-shadow: 3px -5px 7px 3px #ffffff, -7px -7px 15px #403f3f;
+  min-width: 390px;
+  margin-left: 15px;
+  justify-content: start;
+  letter-spacing: 0.3px;
+  border: 1px solid #333333;
+  
+}
+
 /* Customized List Item */
 .ListItem {
+  font-size: 20px;
   font-weight: bold;
   color:#131313;
   display: flex;
@@ -31,59 +65,22 @@ body {
   border-radius: 10px;
   padding: 0px;
   background-color: #fffefedd;
-  box-shadow: -7px -7px 15px #ffffff, 
-  -7px -7px 15px #403f3f;  
+  box-shadow: 15px -5px 15px #ffffff, -7px -7px 15px #403f3f;  
 }
 
-.title {
-  margin-bottom: 5px;
-  font-weight: bold;
-  color:#131313;
-  font-size: 21px;
-  margin: 22px 0;
-  border-radius: 10px;
-  padding: 15px;
-  height: 19px;
-  background-color: #c1bfbfdd;
-  box-shadow: -7px -8px 5px 0px #ffffff, -7px -7px 15px 2px #403f3f;
-  min-width: 430px;
-  margin-left: 20px;
-  justify-content: start;
-  letter-spacing: 0.3px;
-  border: 1px solid #333333;
-}
-
-.notes {
-  margin-bottom: 5px;
-  font-weight: bold;
-  color:#131313;
-  font-size: 21px;
-  margin: 22px 0;
-  border-radius: 10px;
-  padding: 15px;
-  height: 19px;
-  background-color: #c1bfbfdd;
-  box-shadow: -7px -8px 5px 0px #ffffff, -7px -7px 15px 2px #403f3f;
-  min-width: 390px;
-  margin-left: 15px;
-  justify-content: start;
-  letter-spacing: 0.3px;
-  border: 1px solid #333333;
-  
-}
 
 /* Added effect on input field */
 .input {
-  font-family: 'Merriweather', serif;
+  font-family: 'Brush Script MT', cursive;
+  font-size: 26px;
   margin: 20px;
-  font-size: medium;
   font-weight: bold;
   width: 355px;
   padding: 0.5rem;
   border-radius: 5px;
   /* border: 1px solid #333333;
   background-color: #F2F2F2; */
-  box-shadow: -7px -7px 7px 3px #ffffff, -7px -7px 15px #403f3f;
+  box-shadow: 3px -5px 7px 3px #ffffff, -7px -7px 15px #403f3f;
   }
   
   /* Added effect on remove button */
@@ -98,39 +95,67 @@ body {
   border: none;
   font-size: 0.85rem;
   cursor: pointer;
-  box-shadow: -7px -8px 5px 0px #3c3737, -7px -7px 15px 2px #403f3f
+  box-shadow: 3px -5px 7px 3px #ffffff, -7px -7px 15px #403f3f;
   }
   
   /* Customized Add button */
 .addButton {
-  width: 80px; 
+  width: 110px; 
   font-family: 'Merriweather', serif;
+  font-size: 20px;
   padding: 0.5rem 1rem;
   margin-left: 15px;
   /* Added gradient background */
-  background: linear-gradient(to right, #2ac386, #0af412);
+  background: linear-gradient(to right, #2bffab, #0af412);
   padding: 0.5rem 1rem;
-  color: white;
+  color: rgb(3, 3, 3);
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  /*box-shadow: inset -4px -4px 10px #ffffff, inset-4px -4px 10px #403f3f;
+  box-shadow: -4px -4px 10px #ffffff, -4px -4px 10px #403f3f;*/
+  box-shadow: 3px -5px 7px 3px #ffffff, -7px -7px 15px #403f3f;
+  }
+
+
+.sortByAlph{
+  width: 156px;
+  font-family: 'Merriweather', serif;
+  padding: 0.5rem 1rem;
+  margin-left: 755px;
+  background: linear-gradient(to right, #2ac386, #0af412);
+  color: #fdfdfd;
   border-radius: 5px;
   border: none;
   font-size: 1rem;
   cursor: pointer;
-  box-shadow: inset -4px -4px 10px #ffffff, inset-4px -4px 10px #403f3f;
-  box-shadow: -4px -4px 10px #ffffff, -4px -4px 10px #403f3f;
-  }
+}
+
+.sortByTime{
+  width: 156px;
+  font-family: 'Merriweather', serif;
+  padding: 0.5rem 1rem;
+  margin-left: 35px;
+  background: linear-gradient(to right, #2ac386, #0af412);
+  color: #ffffff;
+  border-radius: 5px;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+}
 
 /* Changed the font size, weight, and color of heading ToDo List */
 h1{
   display:flex;
-  padding: 10px;
-  padding-left: 390px;
+  padding: 11px;
+  padding-left: 410px;
   align-items: center;
+  font-family: 'Merriweather', serif;
   font-size: 2rem;
   font-weight: bold;
   color: #0af412;
   border: 1px solid #333333;
-  box-shadow: -4px -4px 12px #ffffff, 
-  -4px -4px 10px #403f3f;
+  box-shadow: 3px -5px 7px 3px #ffffff, -7px -7px 15px #403f3f;
 }
 
 /* Customized label Title */
@@ -140,8 +165,8 @@ h1{
   padding: 8px;
   font-family: 'Merriweather', serif;
   border: 1px solid #333333;
-  box-shadow: -4px -4px 12px #ffffff, 
-  -4px -4px 10px #403f3f;
+  box-shadow: 3px -5px 7px 3px #ffffff, -7px -7px 15px #403f3f;
+
 }
 
 /* Customized Header */
@@ -160,8 +185,8 @@ h1{
 }
 
 .button {
-  font-size: 24px;
-  font-family: "Arial";
+  font-size: 22px;
+  font-family: "Pacifico";
   background: transparent;
   box-shadow: 0px 0px 7px 17px #edebeb, -7px -7px 15px #403f3f;
   border: none;
@@ -170,9 +195,9 @@ h1{
   --fs-size: 2em;
   border-radius: 10px;
   letter-spacing: 4px;
-  text-transform: uppercase;
+  /*text-transform: uppercase*/
   color: transparent;
-  -webkit-text-stroke: 1px var(--text-stroke-color);
+  -webkit-text-stroke: 1.3px var(--text-stroke-color);
 }
 
 /* Customized Footer */
@@ -208,7 +233,8 @@ a:hover {
 .ControlPanel {
   background-color: hsl(0, 0%, 82%);
   color:#131313;
-  font-weight: bold;
+  font-family: 'Merriweather', serif;
+  font-size: 20.5px;
   display: flex;
   flex-wrap: wrap;
   flex-grow: 1;
@@ -217,17 +243,14 @@ a:hover {
   margin: 50px;
   width: 160px;
   height: 59px;
-  font-size: 25px;
   border-radius: 20px;
-  box-shadow: -7px -7px 7px 3px #ffffff, -7px -7px 15px #403f3f;
+  box-shadow: 3px -5px 7px 3px #ffffff, -7px -7px 15px #403f3f;
   margin-left: 150px;
   border: 1px solid #333333;
 }
 
 .active {
-  background-color: #0af412;
-  color: white;
-}
+background-image: linear-gradient(to right, #2bffab, #0af412);}
 
 .Panel {
   /*background-color: #0af412;*/

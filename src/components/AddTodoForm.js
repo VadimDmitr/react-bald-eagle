@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import InputWithLabel from "./InputWithLabel";
 import PropTypes from "prop-types";
 import styles from "./TodoListItem.module.css";
+import '@fortawesome/fontawesome-free/css/all.css';
+
 
 const AddTodoForm = ({ onAddTodo }) => {
   const [todoTitle, setTodoTitle] = useState("");
@@ -44,7 +46,7 @@ const AddTodoForm = ({ onAddTodo }) => {
         name="title"
         placeholder="What to do?"
       >
-        {<strong>Title:</strong>}
+        {<strong>&#9733;  Title:</strong>}
       </InputWithLabel>
       <InputWithLabel
         id="todoDescription"
@@ -55,7 +57,7 @@ const AddTodoForm = ({ onAddTodo }) => {
       >
       </InputWithLabel>
       <button type="submit" className={styles.addButton}>
-        Add
+      Add <i className="fas fa-plus-circle"></i>
       </button>
     </form>
   );
