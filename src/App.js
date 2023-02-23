@@ -6,7 +6,7 @@ import Footer from "./components/Footer";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import MyListContainer from './components/MyListContainer';
 import styles from "./components/TodoListItem.module.css";
-
+import '@fortawesome/fontawesome-free/css/all.css';
 
 
 const App = () => {

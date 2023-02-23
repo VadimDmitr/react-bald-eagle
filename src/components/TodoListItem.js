@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from "prop-types";
 import styles from "./TodoListItem.module.css";
+import '@fortawesome/fontawesome-free/css/all.css';
 
 
 function TodoListItem({ todo, onRemoveTodo }) {
@@ -14,12 +15,13 @@ function TodoListItem({ todo, onRemoveTodo }) {
         <strong>Notes:</strong> {todo.fields.Description}
       </div>
       <button
-        className={styles.removeButton}
-        type="button"
-        onClick={() => onRemoveTodo(todo.id)}
-      >
-        Remove
-      </button>
+      className={styles.removeButton}
+      type="button"
+      onClick={() => onRemoveTodo(todo.id)}
+      aria-label="Remove"
+    >
+  <i className="fas fa-times"></i>
+</button>
     </li>
   );
 }

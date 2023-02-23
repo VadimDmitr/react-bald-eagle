@@ -3,6 +3,10 @@ import PropTypes from "prop-types";
 import AddTodoForm from "./AddTodoForm";
 import TodoList from "./TodoList";
 import { v4 as uuidv4 } from "uuid";
+import styles from "./TodoListItem.module.css";
+import '@fortawesome/fontawesome-free/css/all.css';
+
+
 
 const MyListContainer = ({ listTableName }) => {
   const [todoList, setTodoList] = useState([]);
@@ -256,22 +260,21 @@ const MyListContainer = ({ listTableName }) => {
 
   return (
     <div>
-      <h1>{listTableName} List </h1>
-      <button
+      <h1><i className="fas fa-tasks" aria-label="Tasks"></i> {` ${listTableName}`} List</h1>
+      <AddTodoForm onAddTodo={addTodo} />   
+      <button className={styles.sortByAlph}
         onClick={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}
       >
-        {sortOrder === "asc" ? "Sort Z-A" : "Sort A-Z"}
+        {sortOrder === "asc" ? "Sort Z-A \u2193" : "Sort A-Z \u2191"}
       </button>
-      <button
+      <button className={styles.sortByTime}
         onClick={() => {
           setSortField("createdTime");
           handleSortClick();
         }}
       >
-        Sort by createdTime
+        Sort by Time <i className="fas fa-clock" aria-label="Sort by Time"></i>
       </button>
-
-      <AddTodoForm onAddTodo={addTodo} />
       <TodoList todoList={todoList} onRemoveTodo={removeTodo} />
     </div>
   );
