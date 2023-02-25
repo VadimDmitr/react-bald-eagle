@@ -8,7 +8,7 @@ import '@fortawesome/fontawesome-free/css/all.css';
 
 
 
-const MyListContainer = ({ listTableName }) => {
+const TodoContainer = ({ listTableName }) => {
   const [todoList, setTodoList] = useState([]);
   const [sortOrder, setSortOrder] = useState("asc");
   const [sortField, setSortField] = useState("Title");
@@ -280,8 +280,8 @@ const MyListContainer = ({ listTableName }) => {
   );
 };
 
-MyListContainer.propTypes = {
+TodoContainer.propTypes = {
   listTableName: PropTypes.string,
 };
 
-export default MyListContainer;
+export default TodoContainer;

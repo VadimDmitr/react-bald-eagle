@@ -389,8 +389,8 @@ background-image: linear-gradient(to right, #2bffab, #0af412);}
     margin: 36px;
   }
   .button {
-    width: 85%;
-    margin-left: 23px;
+    width: 90%;
+    margin-left: -20px;
   }
   h1 {
     font-size: 1.5rem;
