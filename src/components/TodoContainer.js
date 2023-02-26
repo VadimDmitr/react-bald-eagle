@@ -14,23 +14,21 @@ const TodoContainer = ({ listTableName }) => {
   const [sortField, setSortField] = useState("Title");
 
   const handleSortClick = () => {
-    if (sortField !== "createdTime") {
-      if (sortOrder === "asc") {
-        setSortOrder("desc");
-      } else if (sortOrder === "desc") {
-        setSortOrder("asc");
-      }
-    }
-    if (sortField === "Title") {
-      setSortOrder(sortOrder === "asc" ? "desc" : "asc");
-    } else {
+    if (sortField !== "Title") {
       setSortField("Title");
       setSortOrder("asc");
+      sortTodoListByTitle(todoList, "asc");
+    } else {
+      setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+      sortTodoListByTitle(todoList, sortOrder);
     }
   };
+  
+  
+  
 
   const sortTodoListByTitle = (list, order) => {
-    list.sort((a, b) => {
+    return list.sort((a, b) => {
       const titleA = a.fields.Title.toUpperCase();
       const titleB = b.fields.Title.toUpperCase();
       if (titleA < titleB) {
@@ -42,6 +40,7 @@ const TodoContainer = ({ listTableName }) => {
       return 0;
     });
   };
+  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -50,9 +49,7 @@ const TodoContainer = ({ listTableName }) => {
           process.env.REACT_APP_AIRTABLE_BASE_ID
         }/${encodeURIComponent(
           listTableName
-        )}?view=Grid%20view&sort[0][field]=${sortField}&sort[0][direction]=${
-          sortField === "createdTime" ? "desc" : sortOrder
-        }`,
+        )}?view=Grid%20view&sort%5B0%5D%5Bfield%5D=${sortField}&sort%5B0%5D%5Bdirection%5D=${sortOrder}`,
         {
           headers: {
             Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`,
@@ -61,34 +58,36 @@ const TodoContainer = ({ listTableName }) => {
       )
         .then((response) => response.json())
         .then((data) => {
-          if (sortField === "Title") {
-            sortTodoListByTitle(data.records, sortOrder);
-          } else {
-            data.records.sort((objectA, objectB) => {
-              if (sortOrder === "asc") {
-                if (objectA.fields[sortField] < objectB.fields[sortField]) {
-                  return -1;
-                }
-                if (objectA.fields[sortField] > objectB.fields[sortField]) {
-                  return 1;
-                }
-              } else {
-                if (objectA.fields[sortField] < objectB.fields[sortField]) {
-                  return 1;
-                }
-                if (objectA.fields[sortField] > objectB.fields[sortField]) {
-                  return -1;
-                }
-              }
-              return 0;
-            });
-          }
-
+          sortTodoListByTitle(data.records, sortOrder);
+          data.records.sort((a, b) => {
+            let fieldA = a.fields[sortField];
+            let fieldB = b.fields[sortField];
+            if (sortField === "Title") {
+              fieldA = fieldA.toUpperCase();
+              fieldB = fieldB.toUpperCase();
+            }
+            if (fieldA < fieldB) {
+              return sortOrder === "asc" ? -1 : 1;
+            }
+            if (fieldA > fieldB) {
+              return sortOrder === "asc" ? 1 : -1;
+            }
+            if (a.fields.createdTime < b.fields.createdTime) {
+              return sortOrder === "asc" ? -1 : 1;
+            }
+            if (a.fields.createdTime > b.fields.createdTime) {
+              return sortOrder === "asc" ? 1 : -1;
+            }
+            return 0;
+          });
+          
           setTodoList(data.records);
         });
     };
     fetchData();
   }, [listTableName, sortOrder, sortField]);
+  
+
 
   useEffect(() => {
     if (listTableName === "General") {
@@ -262,19 +261,33 @@ const TodoContainer = ({ listTableName }) => {
     <div>
       <h1><i className="fas fa-tasks" aria-label="Tasks"></i> {` ${listTableName}`} List</h1>
       <AddTodoForm onAddTodo={addTodo} />   
-      <button className={styles.sortByAlph}
-        onClick={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}
-      >
-        {sortOrder === "asc" ? "Sort Z-A \u2193" : "Sort A-Z \u2191"}
-      </button>
-      <button className={styles.sortByTime}
-        onClick={() => {
-          setSortField("createdTime");
-          handleSortClick();
-        }}
-      >
-        Sort by Time <i className="fas fa-clock" aria-label="Sort by Time"></i>
-      </button>
+      <div>
+  <button
+    className={styles.sortByAlph}
+    onClick={handleSortClick}
+  >
+    {sortField === "Title"
+      ? sortOrder === "asc"
+        ? "Sort Z-A \u2193"
+        : "Sort A-Z \u2191"
+      : "Sort by Title"}
+  </button>
+  <button
+    className={styles.sortByTime}
+    onClick={() => {
+      setSortField("createdTime");
+      setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+    }}
+  >
+    {sortField === "createdTime"
+      ? sortOrder === "asc"
+        ? "Sort by Time \u2193"
+        : "Sort by Time \u2191"
+      : "Sort by Time"}{" "}
+    <i className="fas fa-clock" aria-label="Sort by Time"></i>
+  </button>
+</div>
+
       <TodoList todoList={todoList} onRemoveTodo={removeTodo} />
     </div>
   );
