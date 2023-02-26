@@ -12,6 +12,7 @@ const TodoContainer = ({ listTableName }) => {
   const [todoList, setTodoList] = useState([]);
   const [sortOrder, setSortOrder] = useState("asc");
   const [sortField, setSortField] = useState("Title");
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleSortClick = () => {
     if (sortField !== "Title") {
@@ -24,9 +25,6 @@ const TodoContainer = ({ listTableName }) => {
     }
   };
   
-  
-  
-
   const sortTodoListByTitle = (list, order) => {
     return list.sort((a, b) => {
       const titleA = a.fields.Title.toUpperCase();
@@ -41,9 +39,9 @@ const TodoContainer = ({ listTableName }) => {
     });
   };
   
-
   useEffect(() => {
     const fetchData = async () => {
+      setIsLoading(true);
       const result = await fetch(
         `https://api.airtable.com/v0/${
           process.env.REACT_APP_AIRTABLE_BASE_ID
@@ -81,13 +79,15 @@ const TodoContainer = ({ listTableName }) => {
             return 0;
           });
           
-          setTodoList(data.records);
+          setTimeout(() => {
+            setTodoList(data.records);
+            setIsLoading(false);
+          }, 300); // 
         });
     };
     fetchData();
   }, [listTableName, sortOrder, sortField]);
   
-
 
   useEffect(() => {
     if (listTableName === "General") {
@@ -169,7 +169,6 @@ const TodoContainer = ({ listTableName }) => {
           // Filter the todoList array to remove the deleted todo
           const newTodoList = todoList.filter((todo) => todo.id !== id);
           setTodoList(newTodoList);
-
           // Check if the table name is not General and delete the record from the corresponding table
           if (listTableName !== "General") {
             const tableName =
@@ -196,7 +195,6 @@ const TodoContainer = ({ listTableName }) => {
                 console.error("Error:", error);
               });
           }
-
           // Call the function to delete records from all tables by createdTime
           const deletedRecord = todoList.find((todo) => todo.id === id);
           deleteRecordsByCreatedTime(deletedRecord.fields.createdTime);
@@ -262,34 +260,31 @@ const TodoContainer = ({ listTableName }) => {
       <h1><i className="fas fa-tasks" aria-label="Tasks"></i> {` ${listTableName}`} List</h1>
       <AddTodoForm onAddTodo={addTodo} />   
       <div>
-  <button
-    className={styles.sortByAlph}
-    onClick={handleSortClick}
-  >
-    {sortField === "Title"
-      ? sortOrder === "asc"
+      <button className={styles.sortByAlph} onClick={handleSortClick}>
+        {sortField === "Title"
+        ? sortOrder === "asc"
         ? "Sort Z-A \u2193"
         : "Sort A-Z \u2191"
-      : "Sort by Title"}
-  </button>
-  <button
-    className={styles.sortByTime}
-    onClick={() => {
+        : <>Sort by Title <i className="fas fa-sort-alpha-up" aria-label="Sort by Title"></i></>}
+      </button>
+
+      <button
+      className={styles.sortByTime}
+      onClick={() => {
       setSortField("createdTime");
       setSortOrder(sortOrder === "asc" ? "desc" : "asc");
     }}
-  >
-    {sortField === "createdTime"
+      >
+      {sortField === "createdTime"
       ? sortOrder === "asc"
         ? "Sort by Time \u2193"
         : "Sort by Time \u2191"
       : "Sort by Time"}{" "}
-    <i className="fas fa-clock" aria-label="Sort by Time"></i>
-  </button>
-</div>
-
-      <TodoList todoList={todoList} onRemoveTodo={removeTodo} />
-    </div>
+      <i className="fas fa-clock" aria-label="Sort by Time"></i>
+      </button>
+      </div>
+      {isLoading ? <div>Wait, Wait, it's Loading, please</div> : <TodoList todoList={todoList} onRemoveTodo={removeTodo} />}
+      </div>
   );
 };
 
