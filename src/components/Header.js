@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import styles from "./TodoListItem.module.css";
-//import { Link } from 'react-router-dom';
 import '@fortawesome/fontawesome-free/css/all.css';
 
 function Header() {
