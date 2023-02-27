@@ -283,7 +283,7 @@ const TodoContainer = ({ listTableName }) => {
       <i className="fas fa-clock" aria-label="Sort by Time"></i>
       </button>
       </div>
-      {isLoading ? <div>Wait, Wait, it's Loading, please</div> : <TodoList todoList={todoList} onRemoveTodo={removeTodo} />}
+      {isLoading ? <div>Wait, Wait, please, it's Loading </div> : <TodoList todoList={todoList} onRemoveTodo={removeTodo} />}
       </div>
   );
 };
