@@ -64,7 +64,7 @@ body {
   height: 93px;
   border-radius: 10px;
   padding: 0px;
-  background-color: #fffefedd;
+  background-image: linear-gradient(to right, hsl(0, 0%, 79%), hsl(0, 0%, 61%));
   box-shadow: 15px -5px 15px #ffffff, -7px -7px 15px #403f3f;  
 }
 
