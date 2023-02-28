@@ -42,6 +42,7 @@ const InputWithLabel = ({
     onChange: PropTypes.func,
     name: PropTypes.string,
     placeholder: PropTypes.string,
+    children: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.object]),
 };
 
 export default InputWithLabel;
