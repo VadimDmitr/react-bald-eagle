@@ -68,7 +68,6 @@ body {
   box-shadow: 15px -5px 15px #ffffff, -7px -7px 15px #403f3f;  
 }
 
-
 /* Added effect on input field */
 .input {
   font-family: 'Brush Script MT', cursive;
@@ -403,9 +402,15 @@ background-image: linear-gradient(to right, #2bffab, #0af412);}
     margin-top: 20px;
   }
   .sortByAlph {
-    /* width: 144px; */
+    width: 158px; 
     font-size: 0.9rem;
     margin-left: 11px;
+  }
+
+  .sortByTime {
+    width: 158px;
+    font-size: 0.9rem;
+    margin-left: 5px;
   }
   .Panel {
     margin-left: 150px;
