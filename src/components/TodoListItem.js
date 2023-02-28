@@ -15,13 +15,13 @@ function TodoListItem({ todo, onRemoveTodo }) {
         <strong>Notes:</strong> {todo.fields.Description}
       </div>
       <button
-      className={styles.removeButton}
-      type="button"
-      onClick={() => onRemoveTodo(todo.id)}
-      aria-label="Remove"
-    >
-  <i className="fas fa-times"></i>
-</button>
+        className={styles.removeButton}
+        type="button"
+        onClick={() => onRemoveTodo(todo.id)}
+        aria-label="Remove"
+        >
+        <i className="fas fa-times"></i>
+      </button>
     </li>
   );
 }

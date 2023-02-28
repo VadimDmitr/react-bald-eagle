@@ -116,7 +116,6 @@ body {
   box-shadow: 3px -5px 7px 3px #ffffff, -7px -7px 15px #403f3f;
   }
 
-
 .sortByAlph{
   width: 171px;
   font-family: 'Merriweather', serif;
@@ -186,7 +185,8 @@ h1{
 .button {
   font-size: 22px;
   font-family: "Pacifico";
-  background: transparent;
+  /*background: transparent;*/
+  background-image: linear-gradient(to right, hsl(0, 0%, 80%), hsl(0, 0%, 72%));
   box-shadow: 0px 0px 7px 17px #edebeb, -7px -7px 15px #403f3f;
   border: none;
   --border-right: 10px;
@@ -226,11 +226,13 @@ a {
   }
   
 a:hover {
-  color: #29cdff;
+  color: #00b3ea;
   }
 
 .ControlPanel {
-  background-color: hsl(0, 0%, 82%);
+  background-image: -webkit-linear-gradient(to right, hsl(0, 0%, 82%), hsl(0, 1%, 63%));
+  background-image: linear-gradient(to right, hsl(0, 0%, 79%), hsl(0, 0%, 61%));
+  /*background-color: hsl(0, 0%, 82%);*/
   color:#131313;
   font-family: 'Merriweather', serif;
   font-size: 20.5px;
@@ -262,7 +264,6 @@ background-image: linear-gradient(to right, #2bffab, #0af412);}
 }
 
 /* Media query */
-
 @media screen and (max-width: 1024px) {
   .label {
     color: #0af412;
@@ -327,13 +328,13 @@ background-image: linear-gradient(to right, #2bffab, #0af412);}
   }
   
   .sortByAlph {
-    width: 144px;
+    width: 158px;
     font-size: 0.9rem;
-    margin-left: 415px;
+    margin-left: 20px;
   }
   
   .sortByTime {
-    width: 144px;
+    width: 158px;
     font-size: 0.9rem;
     margin-left: 5px;
   }
@@ -343,19 +344,19 @@ background-image: linear-gradient(to right, #2bffab, #0af412);}
   }
 }
 
-
-
 @media only screen and (max-width: 768px) {
+  
   .container {
     margin-left: 240px;
   }
 }
 
-
 @media only screen and (max-width: 425px) {
+  
   .button {
     width: 80%;
   }
+  
   .container {
     display: flex;
     flex-wrap: wrap;
@@ -367,14 +368,17 @@ background-image: linear-gradient(to right, #2bffab, #0af412);}
 }
 
 @media only screen and (max-width: 375px) {
+  
   .input{
     font-size: 0.9rem;
     width: 165px;
     margin: 0px;
   }
+
   .label {
     margin-left: 40px;
   }
+
   .title {
     min-width: 185px;
     margin: 5px;
@@ -384,23 +388,28 @@ background-image: linear-gradient(to right, #2bffab, #0af412);}
     min-width: 185px;
     margin: 5px;
   }
+
   body {
     margin: 36px;
   }
+
   .button {
     width: 90%;
     margin-left: -20px;
   }
+
   h1 {
     font-size: 1.5rem;
     padding-left: 150px;
   }
+
   .addButton {
     font-size: 0.9rem;
     width: 80px;
     margin-left: 470px;
     margin-top: 20px;
   }
+
   .sortByAlph {
     width: 158px; 
     font-size: 0.9rem;
@@ -412,6 +421,7 @@ background-image: linear-gradient(to right, #2bffab, #0af412);}
     font-size: 0.9rem;
     margin-left: 5px;
   }
+
   .Panel {
     margin-left: 150px;
   }

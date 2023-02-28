@@ -1,5 +1,4 @@
 import React from 'react';
-//import TodoListItem from './TodoListItem';
 import styles from './TodoListItem.module.css';
 import PropTypes from "prop-types";
 
@@ -37,9 +36,12 @@ const InputWithLabel = ({
   };
 
   InputWithLabel.propTypes = {
-    children: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.object]),
-    todoTitle: PropTypes.string,
-    handleTitleChange: PropTypes.func,
+    id: PropTypes.string,
+    value: PropTypes.node,
+    type: PropTypes.string,
+    onChange: PropTypes.func,
+    name: PropTypes.string,
+    placeholder: PropTypes.string,
 };
 
 export default InputWithLabel;
