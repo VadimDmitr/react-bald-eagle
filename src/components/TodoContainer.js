@@ -7,7 +7,6 @@ import styles from "./TodoListItem.module.css";
 import '@fortawesome/fontawesome-free/css/all.css';
 
 
-
 const TodoContainer = ({ listTableName }) => {
   const [todoList, setTodoList] = useState([]);
   const [sortOrder, setSortOrder] = useState("asc");
