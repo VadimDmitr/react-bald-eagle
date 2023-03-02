@@ -182,7 +182,7 @@ h1{
   width: 100%;
 }
 
-.button {
+.button, .weather {
   font-size: 22px;
   font-family: "Pacifico";
   /*background: transparent;*/
@@ -197,6 +197,13 @@ h1{
   /*text-transform: uppercase*/
   color: transparent;
   -webkit-text-stroke: 1.3px var(--text-stroke-color);
+  margin-left: 110px;
+}
+
+.weather {
+  margin-left: 30px;
+  padding: 5px;
+  text-transform: uppercase;
 }
 
 /* Customized Footer */
@@ -341,6 +348,7 @@ background-image: linear-gradient(to right, #2bffab, #0af412);}
   
   .button {
     font-size: 1rem;
+    margin-left: 25px;
   }
 }
 
@@ -355,6 +363,7 @@ background-image: linear-gradient(to right, #2bffab, #0af412);}
   
   .button {
     width: 80%;
+    margin-left: 25px;
   }
   
   .container {
@@ -364,6 +373,10 @@ background-image: linear-gradient(to right, #2bffab, #0af412);}
 
   .Panel {
     margin-left: 240px;
+  }
+
+  .header {
+    width: 90%;
   }
 }
 
